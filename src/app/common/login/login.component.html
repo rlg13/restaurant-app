@@ -8,17 +8,17 @@
           <div class="card-title">{{'login.TITLE' | translate}}</div>
           <form name="loginForm">
             <div class="form-group">
-              <label for="username">Username:</label>
+              <label for="username">{{'login.USERNAME' | translate}}</label>
               <input class="form-control" [(ngModel)]="user.username" id="username" name="username" type="email">
             </div>
 
             <div class="form-group">
-              <label for="password">Password:</label>
+              <label for="password">{{'login.PASSWORD' | translate}}</label>
               <input class="form-control" [(ngModel)]="user.password" id="password" name="password" type="password">
             </div>
 
             <span>{{errorMsg}}</span>
-            <button (click)="login()" class="btn btn-primary" type="submit" name="action">Login</button>
+            <button (click)="login()" class="btn btn-primary" type="submit" name="action">{{'login.LOGIN' | translate}}</button>
           </form>
         </div>
       </div>

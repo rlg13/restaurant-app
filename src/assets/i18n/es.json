@@ -1,5 +1,8 @@
 {
     "login": {
-        "TITLE": "Bienvenido"
+        "TITLE": "Bienvenido",
+        "USERNAME": "Usuario",
+        "PASSWORD": "Contraseña",
+        "LOGIN": "Acceso"
     }
 }

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
+  login(): void {
     if(!this._service.login(this.user)){
         this.errorMsg = 'Failed to login';
     }
