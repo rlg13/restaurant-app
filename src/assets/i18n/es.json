@@ -4,5 +4,8 @@
         "USERNAME": "Usuario",
         "PASSWORD": "Contraseña",
         "LOGIN": "Acceso"
+    },
+    "search": {
+        "TITLE": "Bienvenido"
     }
 }

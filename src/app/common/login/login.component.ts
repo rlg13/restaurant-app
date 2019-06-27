@@ -4,12 +4,13 @@ import { LoginService, User } from 'src/app/services/login.service';
 @Component({
   selector: 'app-login',
   providers: [LoginService],
-  templateUrl: './login.component.html',  
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
   public user = new User('','');
+  public opened = true;
   public errorMsg = '';
 
   constructor(private _service:LoginService) { }
@@ -17,9 +18,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(): void {
+  login() {
     if(!this._service.login(this.user)){
         this.errorMsg = 'Failed to login';
     }
   }
+
+ 
 }

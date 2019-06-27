@@ -1,29 +1,24 @@
-
-<div class="container-fluid bg-primary" id="login">
-  <div class="row">
-    <div class="col"></div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-title">{{'login.TITLE' | translate}}</div>
-          <form name="loginForm">
-            <div class="form-group">
-              <label for="username">{{'login.USERNAME' | translate}}</label>
-              <input class="form-control" [(ngModel)]="user.username" id="username" name="username" type="email">
-            </div>
-
-            <div class="form-group">
-              <label for="password">{{'login.PASSWORD' | translate}}</label>
-              <input class="form-control" [(ngModel)]="user.password" id="password" name="password" type="password">
-            </div>
-
-            <span>{{errorMsg}}</span>
-            <button (click)="login()" class="btn btn-primary" type="submit" name="action">{{'login.LOGIN' | translate}}</button>
-          </form>
-        </div>
+<div class="login-wrapper">
+  <form class="login">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      Management Restaurant Application
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label>{{'login.USERNAME' | translate}}</label>
+        <input type="text"  name="username" clrInput  [(ngModel)]="user.username"  />        
+      </clr-input-container>
+      <clr-password-container>
+        <label>{{'login.PASSWORD' | translate}}</label>
+        <input type="password"  name="password" clrPassword  [(ngModel)]="user.password"/>
+      </clr-password-container>
+      <div class="error active">
+        Invalid user name or password
       </div>
+      <button type="submit" class="btn btn-primary" (click)="login()">
+        {{'login.LOGIN' | translate}}
+      </button>
     </div>
-    <div class="col"></div>
-  </div>
+    </form>
 </div>
-

@@ -1,7 +1,125 @@
-<div class="container">
-    <div class="content">
-        <span>Congratulations, you have successfully logged in!!</span>
-        <br />
-        <a (click)="logout()" href="#">Click Here to logout</a>
+<div class="main-container">
+  <div class="alert alert-app-level"></div>
+  <header class="header header-6">
+    <div>{{'search.TITLE' | translate}} {{user}}</div>
+    <fa name="sign-out" (click)="logout()" id="logout"></fa>
+  </header>
+  <nav class="subnav">
+    Busqueda Pedidos
+  </nav>
+  <div class="content-container">
+    <div class="content-area">
+      <div id="search-filter">
+        <form clrForm clrLayout="horizontal">
+          <div class="clr-row">
+            <clr-date-container>
+              <label>Fecha inicio</label>
+              <input type="date" clrDate [(ngModel)]="fechaInicio" name="fechaInicio" required validate />
+              <clr-control-error>Error message that appears after focus is lost and control is invalid
+              </clr-control-error>
+            </clr-date-container>
+            <clr-date-container>
+              <label>Fecha fin</label>
+              <input clrDate type="date" [(ngModel)]="fechaFin" name="fechaFin" required />
+              <clr-control-error>Error message that appears after focus is lost and control is invalid
+              </clr-control-error>
+            </clr-date-container>
+            <button class="btn btn-success">Filter</button>
+          </div>
+        </form>
+      </div>
+      <div id="search-result">
+        <clr-datagrid>
+          <clr-dg-column>ID Order</clr-dg-column>
+          <clr-dg-column>Dia</clr-dg-column>
+          <clr-dg-column>Estado</clr-dg-column>
+          <clr-dg-column>Primero</clr-dg-column>
+          <clr-dg-column>Segundo</clr-dg-column>
+          <clr-dg-column>Poste</clr-dg-column>
+
+
+          <clr-dg-row>
+            <clr-dg-action-overflow>
+              <button class="action-item">Detalle</button>
+            </clr-dg-action-overflow>
+            <clr-dg-cell>1</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+          </clr-dg-row>
+          <clr-dg-row>
+            <clr-dg-action-overflow>
+              <button class="action-item">Detalle</button>
+            </clr-dg-action-overflow>
+            <clr-dg-cell>2</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+            <clr-dg-cell>Cell</clr-dg-cell>
+          </clr-dg-row>
+
+          <!-- </clr-dg-row> *ngFor="let user of users">
+                                
+                                </clr-dg-row> -->
+
+          <clr-dg-footer>Tropecientas Ordenes</clr-dg-footer>
+        </clr-datagrid>
+
+
+      </div>
+
     </div>
+    <!-- <nav class="sidenav">
+                ...
+            </nav> -->
+  </div>
+  <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" >
+    <h3 class="modal-title">Detalle Orden</h3>
+    <div class="modal-body">
+      <form clrForm id="formDetalle">
+          <clr-date-container>
+              <label>Fecha fin</label>
+              <input clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
+              <clr-control-error>Error message that appears after focus is lost and control is invalid
+              </clr-control-error>
+            </clr-date-container>
+
+        <clr-select-container>
+          <label>Primero</label>
+          <select clrSelect name="firsts" [(ngModel)]="firstOptions">
+            <option value="-1">None</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+          </select>
+        </clr-select-container>
+        <clr-select-container>
+          <label>Segundos</label>
+            <select clrSelect name="seconds" [(ngModel)]="secondsOptions">
+                <option value="-1">None</option>
+              <option value="one">One</option>
+              <option value="two">Two</option>
+              <option value="three">Three</option>
+            </select>
+        </clr-select-container>
+        <clr-select-container>
+          <label>Postres</label>
+          <select clrSelect name="Desserts" [(ngModel)]="desertsOptions">
+              <option value="-1">None</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+          </select>
+        </clr-select-container>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
+    </div>
+  </clr-modal>
+
 </div>
