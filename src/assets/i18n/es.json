@@ -1,11 +1,34 @@
 {
+    "common":{
+        "DATE_INVALID": "La fecha introducida no es valida",
+        "BTN_CREATE": "Crear",
+        "BTN_CANCEL": "Cancelar",
+        "BTN_OK": "Aceptar"
+    },
     "login": {
-        "TITLE": "Bienvenido",
+        "TITLE": "Bienvenido a",
+        "NAME_APP": "Management Restaurant Application",        
         "USERNAME": "Usuario",
         "PASSWORD": "Contraseña",
-        "LOGIN": "Acceso"
+        "LOGIN": "Acceso",
+        "ERROR": "Usuario o nombre invalido",
+        "NEW_USER": "Crear nuevo usuario"
     },
     "search": {
-        "TITLE": "Bienvenido"
+        "TITLE": "Bienvenido",
+        "NAV_TITLE": "Búsqueda de pedidos",
+        "INITIAL_DATE": "Fecha inicio",
+        "END_DATE": "Fecha fin",
+        "FILTER_BUTTON": "Buscar",
+        "table": {
+            "ID": "ID",
+            "DATE": "Fecha",
+            "STATE": "Estado",
+            "FIRST": "Primero",
+            "SECOND": "Segundo",
+            "DESSERT": "Postre",
+            "DETAIL": "Detalle",
+            "FOOTER": "Pedidos"
+        }
     }
 }

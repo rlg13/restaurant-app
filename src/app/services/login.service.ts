@@ -15,6 +15,8 @@ const users = [
 })
 export class LoginService {
 
+
+
   constructor(private _router: Router) { }
 
   logout(): void {
@@ -40,6 +42,9 @@ export class LoginService {
   getUsername() {
     return localStorage.getItem('user');
 
+  }
+  createUser(newUser: User) {
+    users.push(newUser);// Llamada Backend para creacion del nuevo usuario
   }
 
 }

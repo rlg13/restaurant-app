@@ -1,24 +1,49 @@
 <div class="login-wrapper">
-  <form class="login">
+  <form class="login"  [formGroup]="loginForm">
     <section class="title">
-      <h3 class="welcome">Welcome to</h3>
-      Management Restaurant Application
+      <h3 class="welcome">{{'login.TITLE' | translate}}</h3>
+      {{'login.NAME_APP' | translate}} 
     </section>
-    <div class="login-group">
+    <div class="login-group" formGroupName="user">
       <clr-input-container>
         <label>{{'login.USERNAME' | translate}}</label>
-        <input type="text"  name="username" clrInput  [(ngModel)]="user.username"  />        
+        <input type="text"  name="username"  formControlName="username" clrInput  />
+        <clr-control-error>This field is required!</clr-control-error>
       </clr-input-container>
       <clr-password-container>
         <label>{{'login.PASSWORD' | translate}}</label>
-        <input type="password"  name="password" clrPassword  [(ngModel)]="user.password"/>
+        <input type="password"  name="password" clrPassword  formControlName="password"/>
+        <clr-control-error>This field is required!</clr-control-error>
       </clr-password-container>
-      <div class="error active">
-        Invalid user name or password
+      <div class="error active" *ngIf="showError">          
+          {{'login.ERROR' | translate}}
       </div>
-      <button type="submit" class="btn btn-primary" (click)="login()">
+      <a id="nav-link active" (click)="newUser()" href="#"> {{'login.NEW_USER' | translate}}</a>
+      <button type="submit" class="btn btn-primary" (click)="login()"  [disabled]="loginForm.invalid">
         {{'login.LOGIN' | translate}}
       </button>
     </div>
     </form>
 </div>
+
+<clr-modal [(clrModalOpen)]="showNewUserModal">
+  <h3 class="modal-title">{{'login.NEW_USER' | translate}}</h3>
+  <div class="modal-body">
+    <form clrForm [formGroup]="newUserForm">
+        <div class="login-group" formGroupName="userCreate">
+            <clr-input-container>
+              <label>{{'login.USERNAME' | translate}}</label>
+              <input type="text"  name="username" clrInput  formControlName="username" />        
+            </clr-input-container>
+            <clr-password-container>
+              <label>{{'login.PASSWORD' | translate}}</label>
+              <input type="password"  name="password" clrPassword  formControlName="password"/>
+            </clr-password-container>          
+        </div>    
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning-outline" (click)="cancelCreateUser()">{{'common.BTN_CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="newUserForm.invalid" >{{'common.BTN_CREATE' | translate}}</button>
+  </div>
+</clr-modal>

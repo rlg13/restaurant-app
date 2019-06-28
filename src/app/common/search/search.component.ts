@@ -13,8 +13,8 @@ import { LoginService, User } from 'src/app/services/login.service';
 export class SearchComponent implements OnInit {
 
   public user: string;
-  public fechaInicio: Date;
-  public fechaFin: Date;
+  public initialDate: Date;
+  public endDate: Date;
   public opened: boolean;
   public orderDay: Date;
   public firstsOptions: string;
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this._service.checkCredentials();
     this.user = this._service.getUsername();
-    this.opened = true;
+    this.opened = false;
   }
 
   logout() {

@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ClarityModule } from "@clr/angular";
+import { ClarityModule } from '@clr/angular';
 import { AngularFontAwesomeModule} from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ import { SearchComponent } from './common/search/search.component';
     AppRoutingModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AngularFontAwesomeModule,
     TranslateModule.forRoot({
