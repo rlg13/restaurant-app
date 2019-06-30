@@ -4,7 +4,7 @@
     <form clrForm>
       <clr-input-container class="clr-col-12">
         <label class="clr-col-md-4"> {{'search.modalDishCreate.NEW_DISH' | translate}}</label>
-        <input clrInput name="newDish" [(ngModel)]="newDish" required />
+        <input clrInput name="newDishName" [(ngModel)]="newDishName" required />
         <clr-control-error>{{'search.modalDishCreate.DISH_INVALID' | translate}}
         </clr-control-error>
       </clr-input-container>
@@ -14,6 +14,6 @@
     <button type="button" class="btn btn-danger"
       (click)="showAddDish = false">{{'common.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success"
-      (click)="showAddDish = false">{{'common.BTN_CREATE' | translate}}</button>
+      (click)="createDish()">{{'common.BTN_CREATE' | translate}}</button>
   </div>
 </clr-modal>

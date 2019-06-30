@@ -35,13 +35,18 @@
               <label>{{'login.USERNAME' | translate}}</label>
               <input type="text"  name="username" clrInput  formControlName="username" />        
             </clr-input-container>
+            <clr-control-error>{{error | translate}}</clr-control-error>
             <clr-password-container>
               <label>{{'login.PASSWORD' | translate}}</label>
               <input type="password"  name="password" clrPassword  formControlName="password"/>
             </clr-password-container>          
-        </div>    
+        </div>            
     </form>
-  </div>
+    <div id="errorDuplicate" *ngIf="errorCreateUser">          
+        {{ textError | translate}}
+    </div>
+  </div>     
+
   <div class="modal-footer">
     <button type="button" class="btn btn-warning-outline" (click)="cancelCreateUser()">{{'common.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="newUserForm.invalid" >{{'common.BTN_CREATE' | translate}}</button>

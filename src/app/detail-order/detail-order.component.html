@@ -16,9 +16,9 @@
           <label class="clr-col-6">{{'search.modalDetail.FIRST_ORDER' | translate}}</label>
           <select class="clr-col-4" clrSelect name="firsts" [(ngModel)]="firstOptions">
             <option class="options" value="-1">None</option>
-            <option class="options" value="one">One</option>
-            <option class="options" value="two">Two</option>
-            <option class="options" value="three">Three</option>
+            <option class="options" *ngFor="let first of firstDish" [ngValue]="first.id">
+                {{first.name}}
+            </option>
           </select>
         </clr-select-container>
         <button type="button" class="btn btn-primary-outline" *ngIf="create"  (click)="openNewDish('FIRST')">{{'common.BTN_ADD' | translate}}</button>

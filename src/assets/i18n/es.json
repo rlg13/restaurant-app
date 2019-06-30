@@ -14,7 +14,9 @@
         "PASSWORD": "Contraseña",
         "LOGIN": "Acceso",
         "ERROR": "Usuario o nombre invalido",
-        "NEW_USER": "Crear nuevo usuario"
+        "NEW_USER": "Crear nuevo usuario",
+        "DUPLICATE": "Usuario ya existente. Por favor, elija otro nombre",
+        "OTHER_ERRORS": "Servicio de creacion indisponible, por favor intentelo mas tarde"
     },
     "search": {
         "TITLE": "Bienvenido",
