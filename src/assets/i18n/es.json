@@ -3,7 +3,9 @@
         "DATE_INVALID": "La fecha introducida no es valida",
         "BTN_CREATE": "Crear",
         "BTN_CANCEL": "Cancelar",
-        "BTN_OK": "Aceptar"
+        "BTN_OK": "Aceptar",
+        "BTN_CLOSE": "Cerrar",
+        "BTN_ADD": "Añadir"
     },
     "login": {
         "TITLE": "Bienvenido a",
@@ -20,6 +22,7 @@
         "INITIAL_DATE": "Fecha inicio",
         "END_DATE": "Fecha fin",
         "FILTER_BUTTON": "Buscar",
+        "CREATE_BUTTON": "Crear pedido",
         "table": {
             "ID": "ID",
             "DATE": "Fecha",
@@ -29,6 +32,15 @@
             "DESSERT": "Postre",
             "DETAIL": "Detalle",
             "FOOTER": "Pedidos"
+        },
+        "modalDetail": {
+            "CREATE_ORDER": "Crear pedido",
+            "SHOW_ORDER": "Detalle pedido",
+            "DATE_ORDER" :"Fecha servir",
+            "FIRST_ORDER" :"Primer plato",
+            "SECOND_ORDER" :"Segundo plato",
+            "DESSERT_ORDER" :"Postre"
+
         }
     }
 }

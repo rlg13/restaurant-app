@@ -14,12 +14,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
 import { SearchComponent } from './common/search/search.component';
+import { DetailOrderComponent } from './detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SearchComponent
+    SearchComponent,
+    DetailOrderComponent
   ],
   imports: [
     BrowserModule,

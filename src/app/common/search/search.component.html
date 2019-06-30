@@ -14,29 +14,32 @@
           <li class="nav-item">
               <a id="nav-link active" >{{'search.NAV_TITLE' | translate}}</a>
            </li>
+           <li class="nav-item">
+            <button class="btn btn-success-outline" (click) = "createOrder()" >{{'search.CREATE_BUTTON' | translate}}</button>
+         </li>
       </ul>
    
   </nav>
   <div class="content-container">
     <div class="content-area">
       <div id="search-filter">
-        <form clrForm >
+        <form clrForm  [formGroup]="searchForm" >
           <div class="clr-row">
           
             <clr-date-container class=" clr-col-5 ">
               <label>{{'search.INITIAL_DATE' | translate}}</label>
-              <input type="date" clrDate [(ngModel)]="initialDate" name="initialDate" required/>
+              <input type="date" [clrDate]="initialDate" formControlName="initialDateForm" name="initialDate"/>
               <clr-control-error>{{'common.DATE_INVALID' | translate}}
               </clr-control-error>
             </clr-date-container>
           
             <clr-date-container class=" clr-col-5 ">
               <label>{{'search.END_DATE' | translate}}</label>
-              <input type="date" clrDate [(ngModel)]="endDate" name="endDate" required />
+              <input type="date" [clrDate]="endDate" formControlName="endDateForm" name="endDate"/>
               <clr-control-error>{{'common.DATE_INVALID' | translate}}
               </clr-control-error>
             </clr-date-container>
-            <button type="submit"  class="btn btn-success">{{'search.FILTER_BUTTON' | translate}}</button>
+            <button type="submit"  class="btn btn-success" (click) = "filter()" [disabled]="searchForm.invalid">{{'search.FILTER_BUTTON' | translate}}</button>
           </div>
         </form>
       </div>
@@ -51,7 +54,7 @@
 
           <clr-dg-row>
             <clr-dg-action-overflow>
-              <button class="action-item">{{'search.table.DETAIL' | translate}}</button>
+              <button class="action-item" (click)="openDetail()">{{'search.table.DETAIL' | translate}}</button>
             </clr-dg-action-overflow>
             <clr-dg-cell>1</clr-dg-cell>
             <clr-dg-cell>Cell</clr-dg-cell>
@@ -87,50 +90,5 @@
                 ...
             </nav> -->
   </div>
-  <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'lg'" >
-    <h3 class="modal-title">Detalle Orden</h3>
-    <div class="modal-body">
-      <form clrForm id="formDetalle">
-          <clr-date-container>
-              <label>Fecha fin</label>
-              <input clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
-              <clr-control-error>Error message that appears after focus is lost and control is invalid
-              </clr-control-error>
-            </clr-date-container>
-
-        <clr-select-container>
-          <label>Primero</label>
-          <select clrSelect name="firsts" [(ngModel)]="firstOptions">
-            <option value="-1">None</option>
-            <option value="one">One</option>
-            <option value="two">Two</option>
-            <option value="three">Three</option>
-          </select>
-        </clr-select-container>
-        <clr-select-container>
-          <label>Segundos</label>
-            <select clrSelect name="seconds" [(ngModel)]="secondsOptions">
-                <option value="-1">None</option>
-              <option value="one">One</option>
-              <option value="two">Two</option>
-              <option value="three">Three</option>
-            </select>
-        </clr-select-container>
-        <clr-select-container>
-          <label>Postres</label>
-          <select clrSelect name="Desserts" [(ngModel)]="desertsOptions">
-              <option value="-1">None</option>
-            <option value="one">One</option>
-            <option value="two">Two</option>
-            <option value="three">Three</option>
-          </select>
-        </clr-select-container>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="opened = false">Ok</button>
-    </div>
-  </clr-modal>
-
+  <app-detail-order #detail [showModal]="false" [create]="create"></app-detail-order>
 </div>

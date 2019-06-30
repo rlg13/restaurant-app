@@ -1,0 +1,60 @@
+<clr-modal [(clrModalOpen)]="showModal">
+  <h3 class="modal-title" *ngIf="create">{{'search.modalDetail.CREATE_ORDER' | translate}}</h3>
+  <h3 class="modal-title" *ngIf="!create">{{'search.modalDetail.SHOW_ORDER' | translate}}</h3>
+  <div class="modal-body">
+    <form clrForm id="formDetalle">
+      <clr-date-container >
+        <label > {{'search.modalDetail.DATE_ORDER' | translate}}</label>
+        <input clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
+        <clr-control-error>Error message that appears after focus is lost and control is invalid
+        </clr-control-error>
+      </clr-date-container>
+
+      <div class="clr-row">
+        <clr-select-container class="clr-col-8">
+          <label class="clr-col-6">{{'search.modalDetail.FIRST_ORDER' | translate}}</label>
+          <select class="clr-col-4" clrSelect name="firsts" [(ngModel)]="firstOptions">
+            <option class="options" value="-1">None</option>
+            <option class="options" value="one">One</option>
+            <option class="options" value="two">Two</option>
+            <option class="options" value="three">Three</option>
+          </select>
+        </clr-select-container>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+      </div>
+      <div class="clr-row">
+        <clr-select-container class="clr-col-8">
+          <label class="clr-col-6">{{'search.modalDetail.SECOND_ORDER' | translate}}</label>
+          <select class="clr-col-4" clrSelect name="seconds" [(ngModel)]="secondsOptions">
+            <option value="-1">None</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+          </select>
+        </clr-select-container>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+      </div>
+      <div class="clr-row">
+        <clr-select-container class="clr-col-8">
+          <label class="clr-col-6">{{'search.modalDetail.DESSERT_ORDER' | translate}}</label>
+          <select  class="clr-col-4" clrSelect name="Desserts" [(ngModel)]="desertsOptions">
+            <option value="-1">None</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+          </select>
+        </clr-select-container>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer" *ngIf="create">
+    <button type="button" class="btn btn-danger"
+      (click)="showModal = false">{{'common.BTN_CANCEL' | translate}}</button>
+    <button type="button" class="btn btn-success"
+      (click)="showModal = false">{{'common.BTN_CREATE' | translate}}</button>
+  </div>
+  <div class="modal-footer" *ngIf="!create">
+    <button type="button" class="btn btn-danger" (click)="showModal = false">{{'common.BTN_CLOSE' | translate}}</button>
+  </div>
+</clr-modal>
