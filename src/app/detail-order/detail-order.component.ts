@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CreateDishComponent } from './../dish/create-dish/create-dish.component';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -10,11 +11,19 @@ export class DetailOrderComponent implements OnInit {
 
   @Input() create: boolean;
   @Input() showModal: boolean;
-  @Output() emitCloseEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild('newDish', {static: true}) newDish: CreateDishComponent;
+  //@Output() emitCloseEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  
   constructor() { }
 
   ngOnInit() {
+  }
+
+  
+  openNewDish(typeDish: string ){
+    this.newDish.typeDish = typeDish;
+    this.newDish.showAddDish = true;
   }
 
  /* emitClose() {

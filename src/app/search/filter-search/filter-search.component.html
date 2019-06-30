@@ -1,0 +1,22 @@
+<div id="search-filter">
+  <form clrForm [formGroup]="searchForm">
+    <div class="clr-row">
+
+      <clr-date-container class=" clr-col-5 ">
+        <label>{{'search.INITIAL_DATE' | translate}}</label>
+        <input type="date" [clrDate]="initialDate" formControlName="initialDateForm" name="initialDate" />
+        <clr-control-error>{{'common.DATE_INVALID' | translate}}
+        </clr-control-error>
+      </clr-date-container>
+
+      <clr-date-container class=" clr-col-5 ">
+        <label>{{'search.END_DATE' | translate}}</label>
+        <input type="date" [clrDate]="endDate" formControlName="endDateForm" name="endDate" />
+        <clr-control-error>{{'common.DATE_INVALID' | translate}}
+        </clr-control-error>
+      </clr-date-container>
+      <button type="submit" class="btn btn-success" (click)="filter()"
+        [disabled]="searchForm.invalid">{{'search.FILTER_BUTTON' | translate}}</button>
+    </div>
+  </form>
+</div>

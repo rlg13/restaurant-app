@@ -3,13 +3,14 @@
   <h3 class="modal-title" *ngIf="!create">{{'search.modalDetail.SHOW_ORDER' | translate}}</h3>
   <div class="modal-body">
     <form clrForm id="formDetalle">
-      <clr-date-container >
-        <label > {{'search.modalDetail.DATE_ORDER' | translate}}</label>
-        <input clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
-        <clr-control-error>Error message that appears after focus is lost and control is invalid
+      <div class="clr-row">
+      <clr-date-container  class="clr-col-12">
+        <label class="clr-col-4"> {{'search.modalDetail.DATE_ORDER' | translate}}</label>
+        <input class="clr-col-8" clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
+        <clr-control-error>{{'common.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>
-
+    </div>
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
           <label class="clr-col-6">{{'search.modalDetail.FIRST_ORDER' | translate}}</label>
@@ -20,7 +21,7 @@
             <option class="options" value="three">Three</option>
           </select>
         </clr-select-container>
-        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create"  (click)="openNewDish('FIRST')">{{'common.BTN_ADD' | translate}}</button>
       </div>
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
@@ -32,7 +33,7 @@
             <option value="three">Three</option>
           </select>
         </clr-select-container>
-        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create"  (click)="openNewDish('SECOND')">{{'common.BTN_ADD' | translate}}</button>
       </div>
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
@@ -44,7 +45,7 @@
             <option value="three">Three</option>
           </select>
         </clr-select-container>
-        <button type="button" class="btn btn-primary-outline" *ngIf="create">{{'common.BTN_ADD' | translate}}</button>
+        <button type="button" class="btn btn-primary-outline" *ngIf="create" (click)="openNewDish('DESSERT')">{{'common.BTN_ADD' | translate}}</button>
       </div>
     </form>
   </div>
@@ -58,3 +59,5 @@
     <button type="button" class="btn btn-danger" (click)="showModal = false">{{'common.BTN_CLOSE' | translate}}</button>
   </div>
 </clr-modal>
+
+<app-create-dish  #newDish [showAddDish]=false [typeDish]="" > </app-create-dish>

@@ -1,0 +1,31 @@
+<div class="main-container">
+  <div class="alert alert-app-level"></div>
+  <header class="header header-6">
+    <div class="branding">
+      <div id="headerTitle">{{'search.TITLE' | translate}} {{user}} </div>
+    </div>
+    <div class="header-actions">
+      <clr-icon shape="logout" (click)="logout()" id="logout"></clr-icon>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <ul class="nav">
+      <li class="nav-item">
+        <a id="nav-link active">{{'search.NAV_TITLE' | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-success-outline" (click)="createOrder()">{{'search.CREATE_BUTTON' | translate}}</button>
+      </li>
+    </ul>
+
+  </nav>
+  <div class="content-container">
+    <div class="content-area">
+      <app-filter-search></app-filter-search>
+      <app-filter-results></app-filter-results>
+    </div>
+  </div>
+
+  <app-detail-order #detail [showModal]="false" [create]="false"></app-detail-order>
+</div>

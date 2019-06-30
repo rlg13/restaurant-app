@@ -40,7 +40,11 @@
             "FIRST_ORDER" :"Primer plato",
             "SECOND_ORDER" :"Segundo plato",
             "DESSERT_ORDER" :"Postre"
-
+        },
+        "modalDishCreate": {
+            "CREATE_DISH" :"Introducir nuevo plato o postre",
+            "NEW_DISH": "Nuevo plato o postre",
+            "DISH_INVALID": "Debe introducir un nombre del nuevo plato"
         }
     }
 }

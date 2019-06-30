@@ -1,0 +1,42 @@
+<div id="search-result">
+  <clr-datagrid>
+    <clr-dg-column>{{'search.table.ID' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.DATE' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.STATE' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.FIRST' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.SECOND' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.DESSERT' | translate}}</clr-dg-column>
+
+    <clr-dg-row>
+      <clr-dg-action-overflow>
+        <button class="action-item" (click)="openDetail()">{{'search.table.DETAIL' | translate}}</button>
+      </clr-dg-action-overflow>
+      <clr-dg-cell>1</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-row>
+      <clr-dg-action-overflow>
+        <button class="action-item">{{'search.table.DETAIL' | translate}}</button>
+      </clr-dg-action-overflow>
+      <clr-dg-cell>2</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>Cell</clr-dg-cell>
+    </clr-dg-row>
+
+    <!-- </clr-dg-row> *ngFor="let user of users">
+                                
+                                </clr-dg-row> -->
+
+    <clr-dg-footer>Tropecientas {{'search.table.FOOTER' | translate}}</clr-dg-footer>
+  </clr-datagrid>
+
+
+</div>
+<app-detail-order #detail [showModal]="false" [create]="false"></app-detail-order>
