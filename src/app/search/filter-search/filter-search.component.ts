@@ -1,5 +1,6 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-filter-search',
@@ -7,32 +8,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit {
-  private static milisecondsPerDay = 24 * 60 * 60 * 1000;
 
   public initialDate: Date;
   public endDate: Date;
 
-  searchForm = new FormGroup({
-    initialDateForm: new FormControl('', Validators.required),
-    endDateForm: new FormControl('', Validators.required),
-    });
+  searchForm: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.initialDate = new Date((new Date()).getTime() - (3 * FilterSearchComponent.milisecondsPerDay));
-    this.endDate = new Date((new Date()).getTime() + (4 * FilterSearchComponent.milisecondsPerDay));
 
-    this.searchForm.patchValue({
-      initialDateForm: this.initialDate.toJSON(),
-      endDateForm: this.endDate.toJSON()
+    this.initialDate = moment().add(-3, 'd').toDate();
+    this.endDate = moment().add(4, 'd').toDate();
+
+    this.searchForm = new FormGroup({
+      initialDateForm: new FormControl(this.initialDate, [Validators.required]),
+      endDateForm: new FormControl(this.endDate, [Validators.required]),
     });
   }
 
   filter() {
-    //invoke filter system
+
+    console.log('invoke filter');
   }
 
+  checkDates() {
+    if (!this.initialDate) {
+      this.searchForm.patchValue({
+        initialDateForm: null
+      });
+      if (!this.endDate) {
+        this.searchForm.patchValue({
+          endDateForm: null
+        });
+      }
+    }
+  }
 
 }

@@ -4,14 +4,14 @@
 
       <clr-date-container class=" clr-col-5 ">
         <label>{{'search.INITIAL_DATE' | translate}}</label>
-        <input type="date" [clrDate]="initialDate" formControlName="initialDateForm" name="initialDate" />
+        <input [(clrDate)]="initialDate" formControlName="initialDateForm" (change)="checkDates()" name="initialDate" />
         <clr-control-error>{{'common.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>
 
       <clr-date-container class=" clr-col-5 ">
         <label>{{'search.END_DATE' | translate}}</label>
-        <input type="date" [clrDate]="endDate" formControlName="endDateForm" name="endDate" />
+        <input [(clrDate)]="endDate" formControlName="endDateForm" (change)="checkDates()" name="endDate" />
         <clr-control-error>{{'common.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>

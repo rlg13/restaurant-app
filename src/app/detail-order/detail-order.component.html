@@ -2,11 +2,11 @@
   <h3 class="modal-title" *ngIf="create">{{'search.modalDetail.CREATE_ORDER' | translate}}</h3>
   <h3 class="modal-title" *ngIf="!create">{{'search.modalDetail.SHOW_ORDER' | translate}}</h3>
   <div class="modal-body">
-    <form clrForm id="formDetalle">
+    <form clrForm  [formGroup]="formDetalle">
       <div class="clr-row">
-      <clr-date-container  class="clr-col-12">
-        <label class="clr-col-4"> {{'search.modalDetail.DATE_ORDER' | translate}}</label>
-        <input class="clr-col-8" clrDate type="date" [(ngModel)]="orderDay" name="orderDay" required />
+      <clr-date-container  class="clr-col-8">
+        <label class="clr-col-6"> {{'search.modalDetail.DATE_ORDER' | translate}}</label>
+        <input class="clr-col-6" clrDate name="orderDayValue" formControlName="orderDayValue"/>
         <clr-control-error>{{'common.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>
@@ -14,9 +14,9 @@
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
           <label class="clr-col-6">{{'search.modalDetail.FIRST_ORDER' | translate}}</label>
-          <select class="clr-col-4" clrSelect name="firsts" [(ngModel)]="firstOptions">
-            <option class="options" value="-1">None</option>
-            <option class="options" *ngFor="let first of firstDish" [ngValue]="first.id">
+          <select class="clr-col-4 selectDish" clrSelect name="firstSeleted"  formControlName="firstSeletedValue" >
+            <option class="options" [ngValue]="emptyDish">{{'search.modalDetail.NONE' | translate}}</option>
+            <option class="options" *ngFor="let first of firstDishes" [ngValue]="first">
                 {{first.name}}
             </option>
           </select>
@@ -26,11 +26,11 @@
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
           <label class="clr-col-6">{{'search.modalDetail.SECOND_ORDER' | translate}}</label>
-          <select class="clr-col-4" clrSelect name="seconds" [(ngModel)]="secondsOptions">
-            <option value="-1">None</option>
-            <option value="one">One</option>
-            <option value="two">Two</option>
-            <option value="three">Three</option>
+          <select class="clr-col-4 selectDish" clrSelect name="secondSeletedValue" formControlName="secondSeletedValue">
+            <option class="options" [ngValue]="emptyDish">{{'search.modalDetail.NONE' | translate}}</option>
+            <option class="options" *ngFor="let second of secondDishes" [ngValue]="second">
+                {{second.name}}
+            </option>
           </select>
         </clr-select-container>
         <button type="button" class="btn btn-primary-outline" *ngIf="create"  (click)="openNewDish('SECOND')">{{'common.BTN_ADD' | translate}}</button>
@@ -38,11 +38,11 @@
       <div class="clr-row">
         <clr-select-container class="clr-col-8">
           <label class="clr-col-6">{{'search.modalDetail.DESSERT_ORDER' | translate}}</label>
-          <select  class="clr-col-4" clrSelect name="Desserts" [(ngModel)]="desertsOptions">
-            <option value="-1">None</option>
-            <option value="one">One</option>
-            <option value="two">Two</option>
-            <option value="three">Three</option>
+          <select  class="clr-col-4 selectDish" clrSelect name="dessertSeletedValue"  formControlName="dessertSeletedValue">
+            <option class="options" value="-1">{{'search.modalDetail.NONE' | translate}}</option>
+            <option class="options" *ngFor="let dessert of desserts" [ngValue]="dessert">
+                {{dessert.name}}
+            </option>
           </select>
         </clr-select-container>
         <button type="button" class="btn btn-primary-outline" *ngIf="create" (click)="openNewDish('DESSERT')">{{'common.BTN_ADD' | translate}}</button>
@@ -53,11 +53,11 @@
     <button type="button" class="btn btn-danger"
       (click)="showModal = false">{{'common.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success"
-      (click)="showModal = false">{{'common.BTN_CREATE' | translate}}</button>
+      (click)="showModal = false" [disabled]="formDetalle.invalid" >{{'common.BTN_CREATE' | translate}}</button>
   </div>
   <div class="modal-footer" *ngIf="!create">
     <button type="button" class="btn btn-danger" (click)="showModal = false">{{'common.BTN_CLOSE' | translate}}</button>
   </div>
 </clr-modal>
 
-<app-create-dish  #newDish [showAddDish]=false [typeDish]="" > </app-create-dish>
+<app-create-dish  #newDish [showAddDish]=false [typeDish]="" (newDishCreate) = "saveDish($event)"> </app-create-dish>

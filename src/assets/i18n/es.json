@@ -41,7 +41,8 @@
             "DATE_ORDER" :"Fecha servir",
             "FIRST_ORDER" :"Primer plato",
             "SECOND_ORDER" :"Segundo plato",
-            "DESSERT_ORDER" :"Postre"
+            "DESSERT_ORDER" :"Postre",
+            "NONE": "Ninguno"
         },
         "modalDishCreate": {
             "CREATE_DISH" :"Introducir nuevo plato o postre",

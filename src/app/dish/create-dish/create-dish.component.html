@@ -1,10 +1,10 @@
 <clr-modal [(clrModalOpen)]="showAddDish">
   <h3 class="modal-title">{{'search.modalDishCreate.CREATE_DISH' | translate}}</h3>
   <div class="modal-body">
-    <form clrForm>
+    <form [formGroup]="formCreateDish" clrForm> 
       <clr-input-container class="clr-col-12">
-        <label class="clr-col-md-4"> {{'search.modalDishCreate.NEW_DISH' | translate}}</label>
-        <input clrInput name="newDishName" [(ngModel)]="newDishName" required />
+        <label class="clr-col-4"> {{'search.modalDishCreate.NEW_DISH' | translate}}</label>
+        <input clrInput class="clr-col-8" name="newDishName" formControlName="newDishName" />
         <clr-control-error>{{'search.modalDishCreate.DISH_INVALID' | translate}}
         </clr-control-error>
       </clr-input-container>
@@ -14,6 +14,6 @@
     <button type="button" class="btn btn-danger"
       (click)="showAddDish = false">{{'common.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success"
-      (click)="createDish()">{{'common.BTN_CREATE' | translate}}</button>
+      (click)="createDish()" [disabled]="formCreateDish.invalid" >{{'common.BTN_CREATE' | translate}}</button>
   </div>
 </clr-modal>
