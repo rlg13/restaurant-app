@@ -11,14 +11,11 @@ export class FilterSearchComponent implements OnInit {
 
   public initialDate: Date;
   public endDate: Date;
-
   searchForm: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
-
-
     this.initialDate = moment().add(-3, 'd').toDate();
     this.endDate = moment().add(4, 'd').toDate();
 
@@ -29,7 +26,6 @@ export class FilterSearchComponent implements OnInit {
   }
 
   filter() {
-
     console.log('invoke filter');
   }
 

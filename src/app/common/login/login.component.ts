@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../../model/user';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
@@ -12,8 +13,8 @@ import { sha256 } from 'js-sha256';
 })
 export class LoginComponent implements OnInit {
 
-  public user = new User(0, '', '');
-  public userCreate = new User(0, '', '');
+  public user = new User({});
+  public userCreate = new User({});
   public opened = true;
   public showError = false;
   public showNewUserModal = false;
@@ -36,17 +37,21 @@ export class LoginComponent implements OnInit {
         password: new FormControl('', Validators.required),
       })
   });
-  constructor(private _service: LoginService) { }
+  constructor(private service: LoginService, private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    let passwordCypher = sha256(this.loginForm.value.user.password);
-    this.user = new User(0, this.loginForm.value.user.username, passwordCypher);
-    if (!this._service.login(this.user)) {
-      this.showError = true;
-    }
+    const passwordCypher = sha256(this.loginForm.value.user.password);
+    this.user = new User({name: this.loginForm.value.user.username, password: passwordCypher});
+    this.service.login(this.user).subscribe(data => {
+      localStorage.setItem('user', data.name);
+      this.router.navigate(['search']);
+    },
+      error => {
+        this.showError = true;
+      });
   }
 
   newUser() {
@@ -60,14 +65,34 @@ export class LoginComponent implements OnInit {
   }
   createUser() {
     const passwordCypher = sha256(this.newUserForm.value.userCreate.password);
-    this.userCreate = new User(0, this.newUserForm.value.userCreate.username, passwordCypher);
-    this.textError = this._service.createNewUser(this.userCreate);
+    this.userCreate = new User({name: this.newUserForm.value.userCreate.username, password: passwordCypher});
+
+
+    this.service.createNewUser(this.userCreate).subscribe(data => {
+      this.loginForm.patchValue({
+        user: {
+          username: this.newUserForm.value.userCreate.username,
+          password: this.newUserForm.value.userCreate.password
+        }
+      });
+      //Si todo Ok hacer el login con el nuevo usuario
+      this.login();
+    },
+      error => {
+        if (error.status === 409) {
+          this.textError = 'login.DUPLICATE';
+        } else {
+          this.textError = 'login.OTHER_ERRORS';
+        }
+
+      });
+
     if (this.textError !== '') {
       this.errorCreateUser = true;
     }
   }
   cancelCreateUser() {
-    this.userCreate = new User(0, '', '');
+    this.userCreate = new User({});
     this.showNewUserModal = false;
   }
 }

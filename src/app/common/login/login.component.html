@@ -8,17 +8,17 @@
       <clr-input-container>
         <label>{{'login.USERNAME' | translate}}</label>
         <input type="text"  name="username"  formControlName="username" clrInput  />
-        <clr-control-error>This field is required!</clr-control-error>
+        <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
       </clr-input-container>
       <clr-password-container>
         <label>{{'login.PASSWORD' | translate}}</label>
         <input type="password"  name="password" clrPassword  formControlName="password"/>
-        <clr-control-error>This field is required!</clr-control-error>
+        <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
       </clr-password-container>
       <div class="error active" *ngIf="showError">          
           {{'login.ERROR' | translate}}
       </div>
-      <a id="nav-link active" (click)="newUser()" href="#"> {{'login.NEW_USER' | translate}}</a>
+      <button class="btn btn-sm btn-link" id="new-user" (click)="newUser()">{{'login.NEW_USER' | translate}}</button>      
       <button type="submit" class="btn btn-primary" (click)="login()"  [disabled]="loginForm.invalid">
         {{'login.LOGIN' | translate}}
       </button>
@@ -34,11 +34,12 @@
             <clr-input-container>
               <label>{{'login.USERNAME' | translate}}</label>
               <input type="text"  name="username" clrInput  formControlName="username" />        
-            </clr-input-container>
-            <clr-control-error>{{error | translate}}</clr-control-error>
+              <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
+            </clr-input-container>            
             <clr-password-container>
               <label>{{'login.PASSWORD' | translate}}</label>
               <input type="password"  name="password" clrPassword  formControlName="password"/>
+              <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
             </clr-password-container>          
         </div>            
     </form>

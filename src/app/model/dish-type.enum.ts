@@ -1,5 +1,5 @@
 export enum DishType {
-    FIRST = "FIRST",
-    SECOND = "SECOND",
-    DESSERT = "DESSERT"
+    FIRST = 'FIRST',
+    SECOND = 'SECOND',
+    DESSERT = 'DESSERT'
 }

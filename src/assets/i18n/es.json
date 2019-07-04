@@ -1,6 +1,7 @@
 {
     "common":{
         "DATE_INVALID": "La fecha introducida no es valida",
+        "CHECK_REQUIRED": "El campo es requerido",
         "BTN_CREATE": "Crear",
         "BTN_CANCEL": "Cancelar",
         "BTN_OK": "Aceptar",

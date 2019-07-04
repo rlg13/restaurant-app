@@ -6,18 +6,8 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AbstractBaseService } from './abstract-base.service';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
-
-
-// Eliminar en la conexion con Back
-/*export class User {
-  constructor(public username: string, public password: string) { }
-}
-const users = [
-  new User('movidas', '1234'),
-  new User('pepe', '1234')
-];*/
-// Seria valido.
 @Injectable({
   providedIn: 'root'
 })
@@ -26,8 +16,8 @@ export class LoginService extends AbstractBaseService<User> {
   public static USER_ENDPOINT = '/users';
   public static LOGIN_ENDPOINT = "/users/login";
 
-  constructor(private _http: HttpClient, private _router: Router) {
-    super(_http, environment.endpointURL + environment.endpointApi);
+  constructor(private http: HttpClient, private router: Router) {
+    super(http, environment.endpointURL + environment.endpointApi);
   }
 
   protected fromJson(json: any): User {
@@ -48,43 +38,25 @@ export class LoginService extends AbstractBaseService<User> {
   }
   logout(): void {
     localStorage.removeItem('user');
-    this._router.navigate(['login']);
+    this.router.navigate(['login']);
   }
 
-  login(user: User): boolean {
-    this._http.post<User>(`${this.endpointResource}${LoginService.LOGIN_ENDPOINT}`, this.toJson(user), { headers: this.headersHttp })
+  login(user: User): Observable<User> {
+    return this.http.post<User>(`${this.endpointResource}${LoginService.LOGIN_ENDPOINT}`, this.toJson(user), { headers: this.headersHttp })
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
-      ).subscribe(data => {
-        localStorage.setItem('user', data.name);
-        this._router.navigate(['search']);
-      });
-    return false;
+      );
   }
 
-  createNewUser(userCreate: User): string {
-    let valueResponse = '';
-    this.create(LoginService.USER_ENDPOINT, userCreate).subscribe(data => {
-      userCreate = data;
-      //Si todo Ok hacer el login con el nuevo usuario
-      this.login(userCreate);
-    },
-      error => {
-        if (error.status === 409) {
-          valueResponse = 'login.DUPLICATE';
-        } else {
-          valueResponse = 'login.OTHER_ERRORS';
-        }
-
-      });
-    return valueResponse;
+  createNewUser(userCreate: User): Observable<User> {
+    return this.create(LoginService.USER_ENDPOINT, userCreate);
   }
 
 
 
   checkCredentials() {
     if (localStorage.getItem('user') === null) {
-      this._router.navigate(['login']);
+      this.router.navigate(['login']);
     }
   }
 

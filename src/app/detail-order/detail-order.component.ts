@@ -4,8 +4,7 @@ import { CreateDishComponent } from './../dish/create-dish/create-dish.component
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Dish } from '../model/dish';
 import { DishService } from '../services/dish.service';
-import { CustomFormsModule, CustomValidators } from 'ngx-custom-validators';
-
+import * as moment from 'moment';
 
 
 @Component({
@@ -36,8 +35,9 @@ export class DetailOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.orderDay = moment().toDate();
     this.formDetalle = new FormGroup({
-      orderDayValue: new FormControl(this.orderDay, [CustomValidators.date, Validators.required]),
+      orderDayValue: new FormControl(this.orderDay, [Validators.required]),
       firstSeletedValue: new FormControl(this.firstSeletedValue, []),
       secondSeletedValue: new FormControl(this.secondSeletedValue, []),
       dessertSeletedValue: new FormControl(this.dessertSeletedValue, []),
@@ -53,6 +53,23 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
+  checkDates() {
+    if (!this.orderDay) {
+      this.formDetalle.patchValue({
+        orderDayValue: ''
+      });
+    }
+  }
+
+  cleanInputs() {
+    this.formDetalle.patchValue({
+      orderDayValue: moment().format('L'),
+      firstSeletedValue: this.emptyDish,
+      secondSeletedValue: this.emptyDish,
+      dessertSeletedValue: this.emptyDish
+
+    });
+  }
 
   openNewDish(typeDish: string) {
     this.newDish.typeDish = DishType[typeDish];
@@ -66,17 +83,23 @@ export class DetailOrderComponent implements OnInit {
   saveDish(newDish: Dish) {
     if (DishType.FIRST === newDish.type) {
       this.firstDishes.push(newDish);
-      this.firstSeletedValue = newDish;
+      this.formDetalle.patchValue({
+        firstSeletedValue: newDish
+      });
       return;
     }
     if (DishType.SECOND === newDish.type) {
       this.secondDishes.push(newDish);
-      this.secondSeletedValue = newDish;
+      this.formDetalle.patchValue({
+        secondSeletedValue: newDish
+      });
       return;
     }
     if (DishType.DESSERT === newDish.type) {
       this.desserts.push(newDish);
-      this.dessertSeletedValue = newDish;
+      this.formDetalle.patchValue({
+        dessertSeletedValue: newDish
+      });
       return;
     }
   }
