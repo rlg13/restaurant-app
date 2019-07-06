@@ -7,34 +7,23 @@
     <clr-dg-column>{{'search.table.SECOND' | translate}}</clr-dg-column>
     <clr-dg-column>{{'search.table.DESSERT' | translate}}</clr-dg-column>
 
-    <clr-dg-row>
+
+    <clr-dg-row *ngFor="let order of listOrders">
       <clr-dg-action-overflow>
         <button class="action-item" (click)="openDetail()">{{'search.table.DETAIL' | translate}}</button>
       </clr-dg-action-overflow>
-      <clr-dg-cell>1</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
+      <clr-dg-cell>{{order.id}}</clr-dg-cell>
+      <clr-dg-cell>{{order.dayOrder | date: 'dd/MM/yyyy'}}</clr-dg-cell>
+      <clr-dg-cell>{{order.state | translate}}</clr-dg-cell>
+      <clr-dg-cell>{{order.firstDish.name}}</clr-dg-cell>
+      <clr-dg-cell>{{order.secondDish.name}}</clr-dg-cell>
+      <clr-dg-cell>{{order.dessert.name}}</clr-dg-cell>
     </clr-dg-row>
-    <clr-dg-row>
-      <clr-dg-action-overflow>
-        <button class="action-item">{{'search.table.DETAIL' | translate}}</button>
-      </clr-dg-action-overflow>
-      <clr-dg-cell>2</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-      <clr-dg-cell>Cell</clr-dg-cell>
-    </clr-dg-row>
+   
 
-    <!-- </clr-dg-row> *ngFor="let user of users">
-                                
-                                </clr-dg-row> -->
 
-    <clr-dg-footer>Tropecientas {{'search.table.FOOTER' | translate}}</clr-dg-footer>
+
+    <clr-dg-footer>{{listOrders? listOrders.length:0}} {{'search.table.FOOTER' | translate}}</clr-dg-footer>
   </clr-datagrid>
 
 

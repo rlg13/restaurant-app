@@ -1,4 +1,10 @@
 {
+
+    "RECEIVED": "Recibido",
+    "DELIVERED": "Servido",
+    "PAID": "Pagado",
+    "CANCELED": "Cancelado",
+    
     "common":{
         "DATE_INVALID": "La fecha introducida no es valida",
         "CHECK_REQUIRED": "El campo es requerido",

@@ -1,6 +1,22 @@
+import { User } from './../../model/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
+
+
+export class FilterOrderParams {
+  initialDate?: Date;
+  endDate?: Date;
+  user?: string;
+
+  constructor({ initialDate = null, endDate = null, user = null }) {
+    this.initialDate = initialDate;
+    this.endDate = endDate;
+    this.user = user;
+  }
+
+
+}
 
 @Component({
   selector: 'app-filter-search',
@@ -8,6 +24,8 @@ import * as moment from 'moment';
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit {
+
+  @Output() filterEvent: EventEmitter<FilterOrderParams> = new EventEmitter<FilterOrderParams>();
 
   public initialDate: Date;
   public endDate: Date;
@@ -26,6 +44,12 @@ export class FilterSearchComponent implements OnInit {
   }
 
   filter() {
+    const params: FilterOrderParams = new FilterOrderParams({
+      initialDate: this.initialDate,
+      endDate: this.endDate,
+      user: localStorage.getItem('user')
+    });
+    this.filterEvent.emit(params);
     console.log('invoke filter');
   }
 

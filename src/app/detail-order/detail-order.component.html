@@ -53,7 +53,7 @@
     <button type="button" class="btn btn-danger"
       (click)="showModal = false">{{'common.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success"
-      (click)="showModal = false" [disabled]="formDetalle.invalid" >{{'common.BTN_CREATE' | translate}}</button>
+      (click)="saveOrder()" [disabled]="formDetalle.invalid" >{{'common.BTN_CREATE' | translate}}</button>
   </div>
   <div class="modal-footer" *ngIf="!create">
     <button type="button" class="btn btn-danger" (click)="showModal = false">{{'common.BTN_CLOSE' | translate}}</button>

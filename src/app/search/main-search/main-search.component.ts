@@ -1,14 +1,19 @@
+import { Order } from './../../model/order';
+import { HttpParams } from '@angular/common/http';
+import { FilterOrderParams } from './../filter-search/filter-search.component';
 import { LoginService } from 'src/app/services/login.service';
 import { DetailOrderComponent } from './../../detail-order/detail-order.component';
 import { Component, OnInit, ViewChild, LOCALE_ID } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
+import * as moment from 'moment';
+
 
 
 @Component({
   selector: 'app-main-search',
-  providers:[
+  providers: [
     LoginService,
-    {provide: LOCALE_ID, useValue: 'es'}
+    { provide: LOCALE_ID, useValue: 'es' }
   ],
   templateUrl: './main-search.component.html',
   styleUrls: ['./main-search.component.scss']
@@ -22,6 +27,8 @@ export class MainSearchComponent implements OnInit {
   public firstsOptions: string;
   public secondsOptions: string;
   public dessertsOptions: string;
+
+  public listOrders: Array<Order>;
 
   constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService) { }
 
@@ -37,9 +44,29 @@ export class MainSearchComponent implements OnInit {
   logout() {
     this.serviceLogin.logout();
   }
-  createOrder() {
+  openCreateOrder() {
     this.detail.cleanInputs();
     this.detail.showModal = true;
     this.detail.create = true;
+  }
+
+  findElementsByFilter(filter: FilterOrderParams) {
+
+    const initialDate: string = moment(filter.initialDate).format('YYYY-MM-DD');
+    const endDate: string = moment(filter.endDate).format('YYYY-MM-DD');
+    let params: HttpParams = new HttpParams().set('initialDate', initialDate).set('endDate', endDate).set('user', filter.user);
+
+    this.serviceOrder.findAll(params).subscribe(data => {
+      this.listOrders = data;
+
+    });
+
+  }
+
+  createOrder(newOrden: Order) {
+    this.serviceOrder.create(newOrden).subscribe(data => {
+      //TODO: Verificar fecha esta dentro de filtro antes de insertar
+      this.listOrders.push(data);
+    });
   }
 }

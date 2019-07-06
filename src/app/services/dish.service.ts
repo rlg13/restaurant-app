@@ -9,15 +9,13 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DishService extends AbstractBaseService<Dish> {
+export class DishService {
 
   public static DISH_ENDPOINT = '/dishes';
   public static DISH_TYPE_ENDPOINT = '/dishes/type/';
 
 
-  constructor(private _http: HttpClient, private _router: Router) {
-    super(_http, environment.endpointURL + environment.endpointApi);
-  }
+  constructor(private http: HttpClient) { }
 
   protected fromJson(json: any): Dish {
     const user: Dish = {
@@ -36,11 +34,19 @@ export class DishService extends AbstractBaseService<Dish> {
     }
   }
 
-  findByType(typeDish: string){
-    return this._http.get(`${this.endpointResource}${DishService.DISH_TYPE_ENDPOINT}${typeDish}`, { headers: this.headersHttp })
+  create(newDish: Dish) {
+    return this.http.post<Dish>(`${environment.endpointURL}${environment.endpointApi}${DishService.DISH_TYPE_ENDPOINT}`, this.toJson(newDish))
       .pipe(
-        map((jsonResponses: Array<Dish>) => jsonResponses.map ? jsonResponses.map(jsonResponse =>
-          this.fromJson(jsonResponse)) : [])
+        map((jsonResponse: any) => this.fromJson(jsonResponse))
+      );
+  }
+
+
+  findByType(typeDish: string) {
+    return this.http.get(`${environment.endpointURL}${environment.endpointApi}${DishService.DISH_TYPE_ENDPOINT}${typeDish}`)
+      .pipe(
+        map((jsonResponses: Array<Dish>) => jsonResponses.map ? jsonResponses.map(jsonItem =>
+          this.fromJson(jsonItem)) : [])
       );
   }
 

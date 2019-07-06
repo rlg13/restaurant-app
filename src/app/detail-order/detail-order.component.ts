@@ -1,10 +1,13 @@
+import { User } from './../model/user';
+import { Order } from './../model/order';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DishType } from './../model/dish-type.enum';
 import { CreateDishComponent } from './../dish/create-dish/create-dish.component';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Dish } from '../model/dish';
 import { DishService } from '../services/dish.service';
 import * as moment from 'moment';
+
 
 
 @Component({
@@ -17,6 +20,8 @@ export class DetailOrderComponent implements OnInit {
   @Input() create: boolean;
   @Input() showModal: boolean;
   @ViewChild('newDish', { static: true }) newDish: CreateDishComponent;
+
+  @Output() newOrderEvent: EventEmitter<Order> = new EventEmitter<Order>();
 
   emptyDish = new Dish({});
   firstDishes: Array<Dish>;
@@ -69,6 +74,23 @@ export class DetailOrderComponent implements OnInit {
       dessertSeletedValue: this.emptyDish
 
     });
+  }
+
+  saveOrder() {
+    const newOrderItem: Order = new Order({
+      user: new User({ name: localStorage.getItem('user') }),
+      dayOrder: this.orderDay,
+      firstDish: this.formDetalle.controls['firstSeletedValue'].value,
+      secondDish: this.formDetalle.controls['secondSeletedValue'].value,
+      dessert: this.formDetalle.controls['dessertSeletedValue'].value
+    });
+
+    this.newOrderEvent.emit(newOrderItem);
+    this.showModal = false;
+
+
+
+
   }
 
   openNewDish(typeDish: string) {

@@ -15,17 +15,19 @@
         <a id="nav-link active">{{'search.NAV_TITLE' | translate}}</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-success-outline" (click)="createOrder()">{{'search.CREATE_BUTTON' | translate}}</button>
+        <button class="btn btn-success-outline"
+          (click)="openCreateOrder()">{{'search.CREATE_BUTTON' | translate}}</button>
       </li>
     </ul>
 
   </nav>
   <div class="content-container">
     <div class="content-area">
-      <app-filter-search></app-filter-search>
-      <app-filter-results></app-filter-results>
+      <app-filter-search (filterEvent)="findElementsByFilter($event)"></app-filter-search>
+      <app-filter-results [listOrders]="listOrders"></app-filter-results>
     </div>
   </div>
 
-  <app-detail-order #detail [showModal]="false" [create]="false"></app-detail-order>
+  <app-detail-order #detail [showModal]="false" [create]="false" (newOrderEvent)="createOrder($event)">
+  </app-detail-order>
 </div>

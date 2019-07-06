@@ -29,7 +29,7 @@ export class CreateDishComponent implements OnInit {
 
   createDish() {
     const newDish = new Dish({ type: this.typeDish, name: this.formCreateDish.value.newDishName});
-    this.dishService.create(DishService.DISH_ENDPOINT, newDish).subscribe(data => {
+    this.dishService.create(newDish).subscribe(data => {
       this.newDishCreate.emit(data);
       this.showAddDish = false;
     });

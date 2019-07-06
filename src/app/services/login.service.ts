@@ -11,18 +11,15 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService extends AbstractBaseService<User> {
+export class LoginService {
 
   public static USER_ENDPOINT = '/users';
   public static LOGIN_ENDPOINT = "/users/login";
 
-  constructor(private http: HttpClient, private router: Router) {
-    super(http, environment.endpointURL + environment.endpointApi);
-  }
+  constructor(private http: HttpClient, private router: Router) { }
 
   protected fromJson(json: any): User {
     const user: User = {
-      id: json.id,
       name: json.name,
       password: json.password
     }
@@ -31,7 +28,6 @@ export class LoginService extends AbstractBaseService<User> {
 
   protected toJson(item: User) {
     return {
-      id: item.id,
       name: item.name,
       password: item.password
     }
@@ -42,14 +38,17 @@ export class LoginService extends AbstractBaseService<User> {
   }
 
   login(user: User): Observable<User> {
-    return this.http.post<User>(`${this.endpointResource}${LoginService.LOGIN_ENDPOINT}`, this.toJson(user), { headers: this.headersHttp })
+    return this.http.post<User>(`${environment.endpointURL}${environment.endpointApi}${LoginService.LOGIN_ENDPOINT}`, this.toJson(user))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
   }
 
   createNewUser(userCreate: User): Observable<User> {
-    return this.create(LoginService.USER_ENDPOINT, userCreate);
+    return this.http.post<User>(`${environment.endpointURL}${environment.endpointApi}${LoginService.USER_ENDPOINT}`, this.toJson(userCreate))
+      .pipe(
+        map((jsonResponse: any) => this.fromJson(jsonResponse))
+      );
   }
 
 
