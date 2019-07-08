@@ -1,8 +1,9 @@
+import { SessionInterceptor } from './interceptors/session-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -48,7 +49,7 @@ import { MainSearchComponent } from './search/main-search/main-search.component'
       }
     })
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: SessionInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

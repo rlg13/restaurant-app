@@ -28,7 +28,7 @@ export class MainSearchComponent implements OnInit {
   public secondsOptions: string;
   public dessertsOptions: string;
 
-  public listOrders: Array<Order>;
+  public listOrders: Array<Order> = new Array<Order>();
 
   constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService) { }
 
@@ -65,7 +65,6 @@ export class MainSearchComponent implements OnInit {
 
   createOrder(newOrden: Order) {
     this.serviceOrder.create(newOrden).subscribe(data => {
-      //TODO: Verificar fecha esta dentro de filtro antes de insertar
       this.listOrders.push(data);
     });
   }

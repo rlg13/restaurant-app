@@ -3,7 +3,7 @@ import { User } from './../model/user';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { map } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
 import { AbstractBaseService } from './abstract-base.service';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -13,23 +13,27 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  public static USER_ENDPOINT = '/users';
-  public static LOGIN_ENDPOINT = "/users/login";
+  public static USER_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users`;
+  public static LOGIN_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/login`;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   protected fromJson(json: any): User {
     const user: User = {
+      id: json.id,
       name: json.name,
-      password: json.password
+      password: json.password,
+      sessionId: json.sessionId
     }
     return user;
   }
 
   protected toJson(item: User) {
     return {
+      id: item.id,
       name: item.name,
-      password: item.password
+      password: item.password,
+      sessionId: item.sessionId
     }
   }
   logout(): void {
@@ -38,14 +42,14 @@ export class LoginService {
   }
 
   login(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.endpointURL}${environment.endpointApi}${LoginService.LOGIN_ENDPOINT}`, this.toJson(user))
+    return this.http.post<User>(LoginService.LOGIN_ENDPOINT, this.toJson(user))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
   }
 
   createNewUser(userCreate: User): Observable<User> {
-    return this.http.post<User>(`${environment.endpointURL}${environment.endpointApi}${LoginService.USER_ENDPOINT}`, this.toJson(userCreate))
+    return this.http.post<User>(LoginService.USER_ENDPOINT, this.toJson(userCreate))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
@@ -61,7 +65,6 @@ export class LoginService {
 
   getUsername() {
     return localStorage.getItem('user');
-
   }
 
 }

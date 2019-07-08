@@ -11,10 +11,6 @@ const ORDERS_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/or
   providedIn: 'root'
 })
 export class OrdersService {
-
-
-
-
   constructor(private http: HttpClient) { }
 
   protected fromJson(json: any): Order {

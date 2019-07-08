@@ -78,7 +78,7 @@ export class DetailOrderComponent implements OnInit {
 
   saveOrder() {
     const newOrderItem: Order = new Order({
-      user: new User({ name: localStorage.getItem('user') }),
+      user: new User({ id: localStorage.getItem('userId'), name: localStorage.getItem('user') }),
       dayOrder: this.orderDay,
       firstDish: this.formDetalle.controls['firstSeletedValue'].value,
       secondDish: this.formDetalle.controls['secondSeletedValue'].value,

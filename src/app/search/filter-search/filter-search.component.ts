@@ -47,7 +47,7 @@ export class FilterSearchComponent implements OnInit {
     const params: FilterOrderParams = new FilterOrderParams({
       initialDate: this.initialDate,
       endDate: this.endDate,
-      user: localStorage.getItem('user')
+      user: localStorage.getItem('userId')
     });
     this.filterEvent.emit(params);
     console.log('invoke filter');

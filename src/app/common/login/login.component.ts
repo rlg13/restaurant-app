@@ -44,9 +44,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     const passwordCypher = sha256(this.loginForm.value.user.password);
-    this.user = new User({name: this.loginForm.value.user.username, password: passwordCypher});
+    this.user = new User({ name: this.loginForm.value.user.username, password: passwordCypher });
     this.service.login(this.user).subscribe(data => {
+
       localStorage.setItem('user', data.name);
+      localStorage.setItem('userId', data.id);
+      localStorage.setItem('Authorization', data.sessionId);
       this.router.navigate(['search']);
     },
       error => {
@@ -65,7 +68,7 @@ export class LoginComponent implements OnInit {
   }
   createUser() {
     const passwordCypher = sha256(this.newUserForm.value.userCreate.password);
-    this.userCreate = new User({name: this.newUserForm.value.userCreate.username, password: passwordCypher});
+    this.userCreate = new User({ name: this.newUserForm.value.userCreate.username, password: passwordCypher });
 
 
     this.service.createNewUser(this.userCreate).subscribe(data => {
@@ -75,7 +78,6 @@ export class LoginComponent implements OnInit {
           password: this.newUserForm.value.userCreate.password
         }
       });
-      //Si todo Ok hacer el login con el nuevo usuario
       this.login();
     },
       error => {
