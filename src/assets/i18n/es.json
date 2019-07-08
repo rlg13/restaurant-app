@@ -12,7 +12,8 @@
         "BTN_CANCEL": "Cancelar",
         "BTN_OK": "Aceptar",
         "BTN_CLOSE": "Cerrar",
-        "BTN_ADD": "Añadir"
+        "BTN_ADD": "Añadir",
+        "OF": "de"
     },
     "login": {
         "TITLE": "Bienvenido a",
@@ -40,7 +41,9 @@
             "SECOND": "Segundo",
             "DESSERT": "Postre",
             "DETAIL": "Detalle",
-            "FOOTER": "Pedidos"
+            "FOOTER": "Pedidos",
+            "ORDERS_BY_PAGE": "Pedidos por página"
+
         },
         "modalDetail": {
             "CREATE_ORDER": "Crear pedido",

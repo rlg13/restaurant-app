@@ -2,13 +2,15 @@
   <clr-datagrid>
     <clr-dg-column>{{'search.table.ID' | translate}}</clr-dg-column>
     <clr-dg-column>{{'search.table.DATE' | translate}}</clr-dg-column>
-    <clr-dg-column>{{'search.table.STATE' | translate}}</clr-dg-column>
+    <clr-dg-column [clrDgField]="'state'" >{{'search.table.STATE' | translate}}
+        <clr-dg-string-filter [clrDgStringFilter]="orderStateFilter"></clr-dg-string-filter>        
+    </clr-dg-column>
     <clr-dg-column>{{'search.table.FIRST' | translate}}</clr-dg-column>
     <clr-dg-column>{{'search.table.SECOND' | translate}}</clr-dg-column>
     <clr-dg-column>{{'search.table.DESSERT' | translate}}</clr-dg-column>
 
 
-    <clr-dg-row *ngFor="let order of listOrders">
+    <clr-dg-row *clrDgItems="let order of listOrders">
       <clr-dg-action-overflow>
         <button class="action-item" (click)="openDetail()">{{'search.table.DETAIL' | translate}}</button>
       </clr-dg-action-overflow>
@@ -18,12 +20,11 @@
       <clr-dg-cell>{{order.firstDish.name}}</clr-dg-cell>
       <clr-dg-cell>{{order.secondDish.name}}</clr-dg-cell>
       <clr-dg-cell>{{order.dessert.name}}</clr-dg-cell>
-    </clr-dg-row>
-   
-
-
-
-    <clr-dg-footer>{{listOrders? listOrders.length:0}} {{'search.table.FOOTER' | translate}}</clr-dg-footer>
+    </clr-dg-row>   
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'common.OF' | translate}} {{pagination.totalItems}} {{'search.table.FOOTER' | translate}}
+      <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>         
+  </clr-dg-footer>  
   </clr-datagrid>
 
 

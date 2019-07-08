@@ -36,10 +36,12 @@ export class LoginService {
       sessionId: item.sessionId
     }
   }
-  logout(): void {
-    localStorage.removeItem('user');
-    this.router.navigate(['login']);
+  logout(user: User): Observable<User> {
+    return this.http.delete<User>(`${LoginService.LOGIN_ENDPOINT}/${user.id}`);
+
   }
+
+
 
   login(user: User): Observable<User> {
     return this.http.post<User>(LoginService.LOGIN_ENDPOINT, this.toJson(user))

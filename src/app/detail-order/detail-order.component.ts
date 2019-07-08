@@ -67,8 +67,9 @@ export class DetailOrderComponent implements OnInit {
   }
 
   cleanInputs() {
+    this.orderDay = moment().toDate();
     this.formDetalle.patchValue({
-      orderDayValue: moment().format('L'),
+      orderDayValue:  this.orderDay,
       firstSeletedValue: this.emptyDish,
       secondSeletedValue: this.emptyDish,
       dessertSeletedValue: this.emptyDish

@@ -1,3 +1,4 @@
+import { User } from './../../model/user';
 import { Order } from './../../model/order';
 import { HttpParams } from '@angular/common/http';
 import { FilterOrderParams } from './../filter-search/filter-search.component';
@@ -6,6 +7,7 @@ import { DetailOrderComponent } from './../../detail-order/detail-order.componen
 import { Component, OnInit, ViewChild, LOCALE_ID } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 
 
@@ -30,7 +32,7 @@ export class MainSearchComponent implements OnInit {
 
   public listOrders: Array<Order> = new Array<Order>();
 
-  constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService) { }
+  constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService, private router: Router) { }
 
   @ViewChild('detail', { static: true }) detail: DetailOrderComponent;
   ngOnInit() {
@@ -42,7 +44,13 @@ export class MainSearchComponent implements OnInit {
   }
 
   logout() {
-    this.serviceLogin.logout();
+    const userLogout: User = new User({id: localStorage.getItem('userId') });
+    this.serviceLogin.logout(userLogout).subscribe(data => {
+      localStorage.removeItem('Authorization');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('user');
+      this.router.navigate(['login']);
+    });
   }
   openCreateOrder() {
     this.detail.cleanInputs();
