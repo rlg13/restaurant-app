@@ -2,6 +2,7 @@
   <clr-datagrid>
     <clr-dg-column>{{'search.table.ID' | translate}}</clr-dg-column>
     <clr-dg-column>{{'search.table.DATE' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'search.table.DATE_TO_SERVE' | translate}}</clr-dg-column>
     <clr-dg-column [clrDgField]="'state'" >{{'search.table.STATE' | translate}}
         <clr-dg-string-filter [clrDgStringFilter]="orderStateFilter"></clr-dg-string-filter>        
     </clr-dg-column>
@@ -12,10 +13,12 @@
 
     <clr-dg-row *clrDgItems="let order of listOrders">
       <clr-dg-action-overflow>
-        <button class="action-item" (click)="openDetail()">{{'search.table.DETAIL' | translate}}</button>
+        <button class="action-item" *ngIf="permitCancel(order)" (click)="cancelOrder(order)">{{'search.table.CANCEL' | translate}}</button>
+        <button class="action-item" *ngIf="permitPaid(order)" (click)="paidOrder(order)">{{'search.table.PAID' | translate}}</button>
       </clr-dg-action-overflow>
       <clr-dg-cell>{{order.id}}</clr-dg-cell>
       <clr-dg-cell>{{order.dayOrder | date: 'dd/MM/yyyy'}}</clr-dg-cell>
+      <clr-dg-cell>{{order.dayToServe | date: 'dd/MM/yyyy'}}</clr-dg-cell>
       <clr-dg-cell>{{order.state | translate}}</clr-dg-cell>
       <clr-dg-cell>{{order.firstDish.name}}</clr-dg-cell>
       <clr-dg-cell>{{order.secondDish.name}}</clr-dg-cell>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from './../model/user';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ export class LoginService {
 
   public static USER_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users`;
   public static LOGIN_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/login`;
+  public static LOGOUT_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/logout`;
+  
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -36,12 +38,9 @@ export class LoginService {
       sessionId: item.sessionId
     }
   }
-  logout(user: User): Observable<User> {
-    return this.http.delete<User>(`${LoginService.LOGIN_ENDPOINT}/${user.id}`);
-
+  logout(params: HttpParams): Observable<User> {
+    return this.http.delete<User>(LoginService.LOGOUT_ENDPOINT, { params });
   }
-
-
 
   login(user: User): Observable<User> {
     return this.http.post<User>(LoginService.LOGIN_ENDPOINT, this.toJson(user))

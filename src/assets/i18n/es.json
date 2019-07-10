@@ -1,12 +1,13 @@
 {
 
-    "RECEIVED": "Recibido",
+    "RECEIVED": "Emitido",
     "DELIVERED": "Servido",
     "PAID": "Pagado",
     "CANCELED": "Cancelado",
     
     "common":{
         "DATE_INVALID": "La fecha introducida no es valida",
+        "DATE_INVALID_TO_PAST": "La fecha introducida no es valida o es anterior al dia de hoy",
         "CHECK_REQUIRED": "El campo es requerido",
         "BTN_CREATE": "Crear",
         "BTN_CANCEL": "Cancelar",
@@ -35,12 +36,14 @@
         "CREATE_BUTTON": "Crear pedido",
         "table": {
             "ID": "ID",
-            "DATE": "Fecha",
+            "DATE": "Fecha Solicitud",
+            "DATE_TO_SERVE": "Fecha Servir",
             "STATE": "Estado",
             "FIRST": "Primero",
             "SECOND": "Segundo",
             "DESSERT": "Postre",
-            "DETAIL": "Detalle",
+            "CANCEL": "Cancelar",
+            "PAID": "Pagar",
             "FOOTER": "Pedidos",
             "ORDERS_BY_PAGE": "Pedidos por página"
 
@@ -48,11 +51,13 @@
         "modalDetail": {
             "CREATE_ORDER": "Crear pedido",
             "SHOW_ORDER": "Detalle pedido",
-            "DATE_ORDER" :"Fecha servir",
+            "DATE_ORDER" :"Fecha solicitud",
+            "DATE_TO_SERVE" :"Fecha servir",
             "FIRST_ORDER" :"Primer plato",
             "SECOND_ORDER" :"Segundo plato",
             "DESSERT_ORDER" :"Postre",
-            "NONE": "Ninguno"
+            "NONE": "Ninguno",
+            "ERROR_ALMOST_ONE_DISH": "Se debe seleccionar al menos un plato"
         },
         "modalDishCreate": {
             "CREATE_DISH" :"Introducir nuevo plato o postre",

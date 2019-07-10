@@ -32,6 +32,8 @@ export class MainSearchComponent implements OnInit {
 
   public listOrders: Array<Order> = new Array<Order>();
 
+  private fisrtCallCreate: boolean = true;
+
   constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService, private router: Router) { }
 
   @ViewChild('detail', { static: true }) detail: DetailOrderComponent;
@@ -44,8 +46,9 @@ export class MainSearchComponent implements OnInit {
   }
 
   logout() {
-    const userLogout: User = new User({id: localStorage.getItem('userId') });
-    this.serviceLogin.logout(userLogout).subscribe(data => {
+
+    const params: HttpParams = new HttpParams().set('id', localStorage.getItem('userId'));
+    this.serviceLogin.logout(params).subscribe(data => {
       localStorage.removeItem('Authorization');
       localStorage.removeItem('userId');
       localStorage.removeItem('user');
@@ -53,7 +56,11 @@ export class MainSearchComponent implements OnInit {
     });
   }
   openCreateOrder() {
-    this.detail.cleanInputs();
+    if (this.fisrtCallCreate) {
+      this.fisrtCallCreate = false;
+    } else {
+      this.detail.cleanInputs();
+    }
     this.detail.showModal = true;
     this.detail.create = true;
   }
@@ -62,7 +69,7 @@ export class MainSearchComponent implements OnInit {
 
     const initialDate: string = moment(filter.initialDate).format('YYYY-MM-DD');
     const endDate: string = moment(filter.endDate).format('YYYY-MM-DD');
-    let params: HttpParams = new HttpParams().set('initialDate', initialDate).set('endDate', endDate).set('user', filter.user);
+    const params: HttpParams = new HttpParams().set('initialDate', initialDate).set('endDate', endDate).set('user', filter.user);
 
     this.serviceOrder.findAll(params).subscribe(data => {
       this.listOrders = data;

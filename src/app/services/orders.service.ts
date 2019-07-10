@@ -18,10 +18,11 @@ export class OrdersService {
       id: json.id,
       user: json.user,
       dayOrder: json.dayOrder,
+      dayToServe: json.dayToServe,
       state: json.state,
       firstDish: json.firstDish,
       secondDish: json.secondDish,
-      dessert: json.dessert,
+      dessert: json.dessert
     }
     return order;
   }
@@ -31,6 +32,7 @@ export class OrdersService {
       id: item.id,
       user: item.user,
       dayOrder: item.dayOrder,
+      dayToServe: item.dayToServe,
       state: item.state,
       firstDish: item.firstDish,
       secondDish: item.secondDish,

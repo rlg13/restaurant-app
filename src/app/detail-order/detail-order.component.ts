@@ -31,6 +31,8 @@ export class DetailOrderComponent implements OnInit {
   secondSeletedValue: Dish;
   dessertSeletedValue: Dish;
   orderDay: Date;
+  dayToServe: Date;
+  errorCheckDish: boolean = false;
 
   formDetalle: FormGroup;
   constructor(private dishService: DishService) { }
@@ -41,6 +43,7 @@ export class DetailOrderComponent implements OnInit {
 
   ngOnInit() {
     this.orderDay = moment().toDate();
+    this.calculateStimatedDateToServe();
     this.formDetalle = new FormGroup({
       orderDayValue: new FormControl(this.orderDay, [Validators.required]),
       firstSeletedValue: new FormControl(this.firstSeletedValue, []),
@@ -59,17 +62,36 @@ export class DetailOrderComponent implements OnInit {
   }
 
   checkDates() {
-    if (!this.orderDay) {
+    const  dayBefore = moment(this.orderDay).startOf('day');
+    if (!this.orderDay || dayBefore.isBefore(moment().startOf('day'))) {
       this.formDetalle.patchValue({
         orderDayValue: ''
       });
+      this.dayToServe = null;
+    } else {
+     this.calculateStimatedDateToServe();
+
+    }
+  }
+
+  calculateStimatedDateToServe(){
+    const  dateToServeClient = moment(this.orderDay);
+    if (dateToServeClient.isAfter(moment().endOf('day'))) {
+      this.dayToServe = dateToServeClient.startOf('day').toDate();
+    } else {
+      if (moment().hour() >= 11) {
+        this.dayToServe = dateToServeClient.add(1,'d').startOf('day').toDate();
+      } else {
+        this.dayToServe = dateToServeClient.startOf('day').toDate();
+      }
     }
   }
 
   cleanInputs() {
     this.orderDay = moment().toDate();
+    this.calculateStimatedDateToServe();
     this.formDetalle.patchValue({
-      orderDayValue:  this.orderDay,
+      orderDayValue: this.orderDay,
       firstSeletedValue: this.emptyDish,
       secondSeletedValue: this.emptyDish,
       dessertSeletedValue: this.emptyDish
@@ -77,7 +99,22 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
+  checkSelectDish(): boolean {
+    let returnCheck = true;
+    if (this.formDetalle.controls['firstSeletedValue'].value === this.emptyDish
+      && this.formDetalle.controls['secondSeletedValue'].value === this.emptyDish
+      && this.formDetalle.controls['dessertSeletedValue'].value === this.emptyDish) {
+      this.formDetalle.setErrors({ allmostOne: true });
+      returnCheck = false;
+    }
+    return returnCheck;
+  }
+
   saveOrder() {
+    if (!this.checkSelectDish()) {
+      return false;
+    }
+
     const newOrderItem: Order = new Order({
       user: new User({ id: localStorage.getItem('userId'), name: localStorage.getItem('user') }),
       dayOrder: this.orderDay,

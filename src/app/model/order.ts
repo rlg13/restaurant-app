@@ -5,12 +5,13 @@ export class Order {
     id?: number;
     user?: User;
     dayOrder?: Date;
+    dayToServe?: Date;
     state?: OrderState;
     firstDish?: Dish;
     secondDish?: Dish;
     dessert?: Dish;
 
-    constructor({ id = null, user = null, dayOrder = null, state = null, firstDish = null, secondDish = null, dessert = null }) {
+    constructor({ id = null, user = null, dayOrder = null, dayToServe = null, state = null, firstDish = null, secondDish = null, dessert = null }) {
         this.id = id;
         this.user = user;
         this.dayOrder = dayOrder;
@@ -18,6 +19,7 @@ export class Order {
         this.firstDish = firstDish;
         this.secondDish = secondDish;
         this.dessert = dessert;
+        this.dayToServe = dayToServe;
     }
 
 }

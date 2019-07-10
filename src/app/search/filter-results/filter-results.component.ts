@@ -4,6 +4,7 @@ import { DetailOrderComponent } from './../../detail-order/detail-order.componen
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Order } from 'src/app/model/order';
 import { ClrDatagridStringFilterInterface } from '@clr/angular';
+import * as moment from 'moment';
 
 class OrderStateFilter implements ClrDatagridStringFilterInterface<Order> {
   constructor(private transtate: TranslateService) { }
@@ -22,7 +23,7 @@ class OrderStateFilter implements ClrDatagridStringFilterInterface<Order> {
 })
 export class FilterResultsComponent implements OnInit {
 
-  @ViewChild('detail', { static: true }) detail: DetailOrderComponent;
+  //@ViewChild('detail', { static: true }) detail: DetailOrderComponent;
   @Input() listOrders: Array<Order>;
 
   protected orderStateFilter: OrderStateFilter;
@@ -33,9 +34,23 @@ export class FilterResultsComponent implements OnInit {
     this.orderStateFilter = new OrderStateFilter(this.translator);
   }
 
-  openDetail() {
-    this.detail.showModal = true;
-    this.detail.create = false;
+  /* openDetail() {
+     this.detail.showModal = true;
+     this.detail.create = false;
+   }*/
+
+  cancelOrder(order) {
+    return;
+  }
+  paidOrder(order) {
+    return;
   }
 
+  permitCancel(order: Order) {
+    return moment(order.dayToServe).isAfter(moment().startOf('day')) && order.state === OrderState.RECEIVED;
+  }
+
+  permitPaid(order: Order) {
+    return order.state === OrderState.DELIVERED;
+  }
 }
