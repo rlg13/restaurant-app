@@ -1,9 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Dish } from '../model/dish';
-import { AbstractBaseService } from './abstract-base.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,8 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class DishService {
 
-  public static DISH_ENDPOINT = '/dishes';
-  public static DISH_TYPE_ENDPOINT = '/dishes/type/';
+  public static DISH_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/dishes`;
+  public static DISH_TYPE_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/dishes/type/`;
 
 
   constructor(private http: HttpClient) { }
@@ -35,7 +33,7 @@ export class DishService {
   }
 
   create(newDish: Dish) {
-    return this.http.post<Dish>(`${environment.endpointURL}${environment.endpointApi}${DishService.DISH_TYPE_ENDPOINT}`, this.toJson(newDish))
+    return this.http.post<Dish>(DishService.DISH_ENDPOINT, this.toJson(newDish))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
@@ -43,7 +41,7 @@ export class DishService {
 
 
   findByType(typeDish: string) {
-    return this.http.get(`${environment.endpointURL}${environment.endpointApi}${DishService.DISH_TYPE_ENDPOINT}${typeDish}`)
+    return this.http.get(`${DishService.DISH_TYPE_ENDPOINT}${typeDish}`)
       .pipe(
         map((jsonResponses: Array<Dish>) => jsonResponses.map ? jsonResponses.map(jsonItem =>
           this.fromJson(jsonItem)) : [])

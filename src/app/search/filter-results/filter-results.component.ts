@@ -47,10 +47,11 @@ export class FilterResultsComponent implements OnInit {
   }
 
   permitCancel(order: Order) {
-    return moment(order.dayToServe).isAfter(moment().startOf('day')) && order.state === OrderState.RECEIVED;
+    return !!order && !!order.dayToServe && !!order.state
+      && moment(order.dayToServe).isAfter(moment().startOf('day')) && order.state === OrderState.RECEIVED;
   }
 
   permitPaid(order: Order) {
-    return order.state === OrderState.DELIVERED;
+    return !!order && !!order.state && order.state === OrderState.DELIVERED;
   }
 }

@@ -9,26 +9,27 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ClarityModule } from '@clr/angular';
-import { AngularFontAwesomeModule} from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './common/login/login.component';
 import { DetailOrderComponent } from './detail-order/detail-order.component';
 import { CreateDishComponent } from './dish/create-dish/create-dish.component';
 import { FilterSearchComponent } from './search/filter-search/filter-search.component';
 import { FilterResultsComponent } from './search/filter-results/filter-results.component';
 import { MainSearchComponent } from './search/main-search/main-search.component';
+import { CreateUserComponent } from './common/login/create-user/create-user.component';
+import { MainLoginComponent } from './common/login/main-login/main-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     DetailOrderComponent,
     CreateDishComponent,
     FilterSearchComponent,
     FilterResultsComponent,
-    MainSearchComponent
+    MainSearchComponent,
+    CreateUserComponent,
+    MainLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +39,7 @@ import { MainSearchComponent } from './search/main-search/main-search.component'
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    AngularFontAwesomeModule,
+    HttpClientModule, 
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

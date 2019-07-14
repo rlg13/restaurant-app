@@ -34,7 +34,7 @@ export class FilterSearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.initialDate = moment().add(-3, 'd').toDate();
+    this.initialDate = moment().subtract(3, 'd').toDate();
     this.endDate = moment().add(4, 'd').toDate();
 
     this.searchForm = new FormGroup({
@@ -50,10 +50,10 @@ export class FilterSearchComponent implements OnInit {
       user: localStorage.getItem('userId')
     });
     this.filterEvent.emit(params);
-    console.log('invoke filter');
   }
 
   checkDates() {
+    
     if (!this.initialDate) {
       this.searchForm.patchValue({
         initialDateForm: null

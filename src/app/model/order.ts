@@ -11,7 +11,8 @@ export class Order {
     secondDish?: Dish;
     dessert?: Dish;
 
-    constructor({ id = null, user = null, dayOrder = null, dayToServe = null, state = null, firstDish = null, secondDish = null, dessert = null }) {
+    constructor({ id = null, user = null, dayOrder = null, dayToServe = null,
+        state = null, firstDish = null, secondDish = null, dessert = null }) {
         this.id = id;
         this.user = user;
         this.dayOrder = dayOrder;
