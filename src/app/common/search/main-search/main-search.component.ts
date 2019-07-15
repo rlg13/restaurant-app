@@ -1,9 +1,8 @@
-import { User } from './../../model/user';
-import { Order } from './../../model/order';
+import { DetailOrderComponent } from '../../detail/detail-order/detail-order.component';
+import { Order } from '../../../model/order';
 import { HttpParams } from '@angular/common/http';
-import { FilterOrderParams } from './../filter-search/filter-search.component';
+import { FilterOrderParams } from '../filter-search/filter-search.component';
 import { LoginService } from 'src/app/services/login.service';
-import { DetailOrderComponent } from './../../detail-order/detail-order.component';
 import { Component, OnInit, ViewChild, LOCALE_ID } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 import * as moment from 'moment';
@@ -56,13 +55,10 @@ export class MainSearchComponent implements OnInit {
     });
   }
   openCreateOrder() {
-    if (this.fisrtCallCreate) {
-      this.fisrtCallCreate = false;
-    } else {
-      this.detail.cleanInputs();
-    }
+    
+    this.detail.cleanInputs();
+    
     this.detail.showModal = true;
-    this.detail.create = true;
   }
 
   findElementsByFilter(filter: FilterOrderParams) {

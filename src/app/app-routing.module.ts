@@ -1,4 +1,4 @@
-import { MainSearchComponent } from './search/main-search/main-search.component';
+import { MainSearchComponent } from './common/search/main-search/main-search.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainLoginComponent } from './common/login/main-login/main-login.component';

@@ -1,4 +1,4 @@
-import { User } from './../../model/user';
+import { User } from '../../../model/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';

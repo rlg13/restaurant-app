@@ -1,0 +1,70 @@
+<clr-modal [(clrModalOpen)]="showModal">
+    <h3 class="modal-title">{{'search.modalDetail.CREATE_ORDER' | translate}}</h3>
+    
+    <div class="modal-body">
+      <form clrForm [formGroup]="formDetalle">
+        <div class="clr-row">
+          <clr-date-container class="clr-col-8">
+            <label class="clr-col-6"> {{'search.modalDetail.DATE_ORDER' | translate}}</label>
+            <input class="clr-col-6" [(clrDate)]="orderDay" name="orderDay" (change)="checkDates()" (blur)= "checkDates()"
+              formControlName="orderDayValue" />
+            <clr-control-error>{{'common.DATE_INVALID_TO_PAST' | translate}}
+            </clr-control-error>
+          </clr-date-container>
+        </div>
+        <div class="clr-row">
+            <clr-input-container class="clr-col-8">
+                <label class="clr-col-6">{{'search.modalDetail.DATE_TO_SERVE' | translate}}</label>
+                <label class="clr-col-6">{{ dayToServe | date: 'dd/MM/yyyy'}}</label> 
+            </clr-input-container>
+        </div>
+        
+        <app-select-dish  
+            [type]="FIRST" 
+            [items]="firstDishes" 
+            [itemSelected]="firstSeletedValue"           
+            [labelName]="'search.modalDetail.FIRST_ORDER'"
+            (selectDish)="selectDish($event)">
+        </app-select-dish>
+
+        <div class="clr-row">
+          <clr-select-container class="clr-col-8">
+            <label class="clr-col-6">{{'search.modalDetail.SECOND_ORDER' | translate}}</label>
+            <select class="clr-col-4 selectDish" clrSelect name="secondSeletedValue" >
+              <option class="options" [ngValue]="emptyDish">{{'search.modalDetail.NONE' | translate}}</option>
+              <option class="options" *ngFor="let second of secondDishes" [ngValue]="second">
+                {{second.name}}
+              </option>
+            </select>
+          </clr-select-container>
+          <button type="button" class="btn btn-primary-outline"
+            (click)="openNewDish('SECOND')">{{'common.BTN_ADD' | translate}}</button>
+        </div>
+        <div class="clr-row">
+          <clr-select-container class="clr-col-8">
+            <label class="clr-col-6">{{'search.modalDetail.DESSERT_ORDER' | translate}}</label>
+            <select class="clr-col-4 selectDish" clrSelect="dessertSeletedValue" name="dessertSeletedValue"
+            >
+              <option class="options" [ngValue]="emptyDish">{{'search.modalDetail.NONE' | translate}}</option>
+              <option class="options" *ngFor="let dessert of desserts" [ngValue]="dessert">
+                {{dessert.name}}
+              </option>
+            </select>
+          </clr-select-container>
+          <button type="button" class="btn btn-primary-outline" 
+            (click)="openNewDish('DESSERT')">{{'common.BTN_ADD' | translate}}</button>
+        </div>
+        <div id="allmostOneError" *ngIf="formDetalle.errors?.allmostOne">
+          {{'search.modalDetail.ERROR_ALMOST_ONE_DISH' | translate}} </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger"
+        (click)="showModal = false">{{'common.BTN_CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-success" (click)="saveOrder()"
+        [disabled]="formDetalle.invalid">{{'common.BTN_CREATE' | translate}}</button>
+    </div>
+  </clr-modal>
+  
+  <app-create-dish #newDish [showAddDish]=false [typeDish]="" (newDishCreate)="saveDish($event)"> </app-create-dish>
+  

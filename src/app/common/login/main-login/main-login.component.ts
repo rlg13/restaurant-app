@@ -56,7 +56,8 @@ export class MainLoginComponent implements OnInit {
     this.createUser.showNewUserModal = true;
     this.createUser.newUserForm.patchValue({
       userCreate: {
-        username: this.loginForm.value.user.username
+        username: this.loginForm.value.user.username,
+        password: ''
       }
     });
     return false;

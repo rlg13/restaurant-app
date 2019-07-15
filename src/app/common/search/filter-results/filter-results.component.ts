@@ -1,6 +1,5 @@
-import { OrderState } from './../../model/order-state.enum';
+import { OrderState } from '../../../model/order-state.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { DetailOrderComponent } from './../../detail-order/detail-order.component';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Order } from 'src/app/model/order';
 import { ClrDatagridStringFilterInterface } from '@clr/angular';
@@ -23,7 +22,7 @@ class OrderStateFilter implements ClrDatagridStringFilterInterface<Order> {
 })
 export class FilterResultsComponent implements OnInit {
 
-  //@ViewChild('detail', { static: true }) detail: DetailOrderComponent;
+
   @Input() listOrders: Array<Order>;
 
   protected orderStateFilter: OrderStateFilter;
@@ -33,11 +32,6 @@ export class FilterResultsComponent implements OnInit {
   ngOnInit() {
     this.orderStateFilter = new OrderStateFilter(this.translator);
   }
-
-  /* openDetail() {
-     this.detail.showModal = true;
-     this.detail.create = false;
-   }*/
 
   cancelOrder(order) {
     return;
