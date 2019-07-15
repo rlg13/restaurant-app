@@ -20,9 +20,9 @@
       <clr-dg-cell>{{order.dayOrder | date: 'dd/MM/yyyy'}}</clr-dg-cell>
       <clr-dg-cell>{{order.dayToServe | date: 'dd/MM/yyyy'}}</clr-dg-cell>
       <clr-dg-cell>{{order.state | translate}}</clr-dg-cell>
-      <clr-dg-cell>{{order.firstDish.name}}</clr-dg-cell>
-      <clr-dg-cell>{{order.secondDish.name}}</clr-dg-cell>
-      <clr-dg-cell>{{order.dessert.name}}</clr-dg-cell>
+      <clr-dg-cell>{{order.firstDish?.name}}</clr-dg-cell>
+      <clr-dg-cell>{{order.secondDish?.name}}</clr-dg-cell>
+      <clr-dg-cell>{{order.dessert?.name}}</clr-dg-cell>
     </clr-dg-row>   
     <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'common.OF' | translate}} {{pagination.totalItems}} {{'search.table.FOOTER' | translate}}

@@ -15,21 +15,24 @@ export class SelectDishComponent implements OnInit {
   @Input() labelName: string;
   @Input() form: FormGroup;
   @Input() control: FormControl;
-
-  @Output() selectDish: EventEmitter<Dish> = new EventEmitter<Dish>();
-
-  //@Input() nameControl: string;
   @Input() itemSelected: Dish;
 
-  emptyDish = new Dish({});
+  @Output() selectDish: EventEmitter<Dish> = new EventEmitter<Dish>();
+  @Output() createNewDish: EventEmitter<DishType> = new EventEmitter<DishType>();
+
+  emptyDish: Dish;
   constructor() { }
 
   ngOnInit() {
-    this.itemSelected = this.emptyDish;
+    this.emptyDish = new Dish({ type: this.type });
   }
 
   onChange($event) {
     this.selectDish.emit(this.itemSelected);
+  }
+
+  openNewDish() {
+    this.createNewDish.emit(this.type);
   }
 
 }

@@ -1,3 +1,4 @@
+import { SelectDishComponent } from './../select-dish/select-dish.component';
 import { CreateDishComponent } from './../create-dish/create-dish.component';
 import { DishType } from './../../../model/dish-type.enum';
 import { DishService } from './../../../services/dish.service';
@@ -21,7 +22,10 @@ export class DetailOrderComponent implements OnInit {
 
   @Output() newOrderEvent: EventEmitter<Order> = new EventEmitter<Order>();
 
-  emptyDish = new Dish({});
+  @ViewChild('fistComponent', { static: true }) fistComponent: SelectDishComponent;
+  @ViewChild('secondComponent', { static: true }) secondComponent: SelectDishComponent;
+  @ViewChild('dessertComponent', { static: true }) dessertComponent: SelectDishComponent;
+
   firstDishes: Array<Dish>;
   secondDishes: Array<Dish>;
   desserts: Array<Dish>;
@@ -30,14 +34,13 @@ export class DetailOrderComponent implements OnInit {
   dessertSeletedValue: Dish;
   orderDay: Date;
   dayToServe: Date;
-
   formDetalle: FormGroup;
+
   constructor(private dishService: DishService) { }
 
   getTypeEnum() {
     return DishType;
   }
-
 
   ngOnInit() {
     this.orderDay = moment().toDate();
@@ -54,10 +57,6 @@ export class DetailOrderComponent implements OnInit {
     this.dishService.findByType(DishType.DESSERT).subscribe(data => {
       this.desserts = data;
     });
-
-    this.firstSeletedValue = this.emptyDish;
-    this.secondSeletedValue = this.emptyDish;
-    this.dessertSeletedValue = this.emptyDish;
   }
 
   checkDates() {
@@ -89,18 +88,23 @@ export class DetailOrderComponent implements OnInit {
   cleanInputs() {
     this.orderDay = moment().toDate();
     this.calculateStimatedDateToServe();
-    this.firstSeletedValue = this.emptyDish;
-    this.secondSeletedValue = this.emptyDish;
-    this.dessertSeletedValue = this.emptyDish;
+    this.firstSeletedValue = this.fistComponent.emptyDish;
+    this.secondSeletedValue = this.secondComponent.emptyDish;
+    this.dessertSeletedValue = this.dessertComponent.emptyDish;
+    this.fistComponent.itemSelected = this.fistComponent.emptyDish;
+    this.secondComponent.itemSelected = this.secondComponent.emptyDish;
+    this.dessertComponent.itemSelected = this.dessertComponent.emptyDish;
   }
 
   checkSelectDish(): boolean {
     let returnCheck = true;
-    if (this.firstSeletedValue === this.emptyDish
-      && this.secondSeletedValue === this.emptyDish
-      && this.dessertSeletedValue === this.emptyDish) {
+    if (this.firstSeletedValue.id === null
+      && this.secondSeletedValue.id === null
+      && this.dessertSeletedValue.id === null) {
       this.formDetalle.setErrors({ allmostOne: true });
       returnCheck = false;
+    } else {
+      this.formDetalle.setErrors(null);
     }
     return returnCheck;
   }
@@ -117,33 +121,29 @@ export class DetailOrderComponent implements OnInit {
       secondDish: this.secondSeletedValue,
       dessert: this.dessertSeletedValue
     });
-
     this.newOrderEvent.emit(newOrderItem);
     this.showModal = false;
   }
 
-  openNewDish(typeDish: string) {
-    this.newDish.typeDish = DishType[typeDish];
+  openCreateDish(typeDish: DishType) {
+    this.newDish.typeDish = typeDish;
     this.newDish.formCreateDish.patchValue({
       newDishName: ''
     });
-
     this.newDish.showAddDish = true;
   }
 
   selectDish(dishSelected: Dish) {
     if (DishType.FIRST === dishSelected.type) {
       this.firstSeletedValue = dishSelected;
-      return;
     }
     if (DishType.SECOND === dishSelected.type) {
       this.secondSeletedValue = dishSelected;
-      return;
     }
     if (DishType.DESSERT === dishSelected.type) {
       this.dessertSeletedValue = dishSelected;
-      return;
     }
+    this.checkSelectDish();
   }
 
   saveDish(newDish: Dish) {
