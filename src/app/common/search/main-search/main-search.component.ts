@@ -31,21 +31,17 @@ export class MainSearchComponent implements OnInit {
 
   public listOrders: Array<Order> = new Array<Order>();
 
-  private fisrtCallCreate: boolean = true;
-
   constructor(private serviceLogin: LoginService, private serviceOrder: OrdersService, private router: Router) { }
 
   @ViewChild('detail', { static: true }) detail: DetailOrderComponent;
-  ngOnInit() {
 
+  ngOnInit() {
     this.serviceLogin.checkCredentials();
     this.user = this.serviceLogin.getUsername();
     this.detail.showModal = false;
-
   }
 
   logout() {
-
     const params: HttpParams = new HttpParams().set('id', localStorage.getItem('userId'));
     this.serviceLogin.logout(params).subscribe(data => {
       localStorage.removeItem('Authorization');
@@ -54,15 +50,13 @@ export class MainSearchComponent implements OnInit {
       this.router.navigate(['login']);
     });
   }
+
   openCreateOrder() {
-    
     this.detail.cleanInputs();
-    
     this.detail.showModal = true;
   }
 
   findElementsByFilter(filter: FilterOrderParams) {
-
     const initialDate: string = moment(filter.initialDate).format('YYYY-MM-DD');
     const endDate: string = moment(filter.endDate).format('YYYY-MM-DD');
     const params: HttpParams = new HttpParams().set('initialDate', initialDate).set('endDate', endDate).set('user', filter.user);
@@ -71,7 +65,6 @@ export class MainSearchComponent implements OnInit {
       this.listOrders = data;
 
     });
-
   }
 
   createOrder(newOrden: Order) {

@@ -1,22 +1,8 @@
-import { User } from '../../../model/user';
+import { FilterOrderParams } from './filter-order-params';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 
-
-export class FilterOrderParams {
-  initialDate?: Date;
-  endDate?: Date;
-  user?: string;
-
-  constructor({ initialDate = null, endDate = null, user = null }) {
-    this.initialDate = initialDate;
-    this.endDate = endDate;
-    this.user = user;
-  }
-
-
-}
 
 @Component({
   selector: 'app-filter-search',
@@ -53,7 +39,7 @@ export class FilterSearchComponent implements OnInit {
   }
 
   checkDates() {
-    
+
     if (!this.initialDate) {
       this.searchForm.patchValue({
         initialDateForm: null

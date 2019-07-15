@@ -4,16 +4,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Order } from 'src/app/model/order';
 import { ClrDatagridStringFilterInterface } from '@clr/angular';
 import * as moment from 'moment';
-
-class OrderStateFilter implements ClrDatagridStringFilterInterface<Order> {
-  constructor(private transtate: TranslateService) { }
-
-  accepts(order: Order, search: string): boolean {
-    const orderTranslate: string = this.transtate.instant(order.state);
-    return (orderTranslate.toLowerCase().indexOf(search.toLowerCase())) >= 0;
-
-  }
-}
+import { OrderStateFilter } from './order-state-filter';
 
 @Component({
   selector: 'app-filter-results',

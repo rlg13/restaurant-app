@@ -15,7 +15,7 @@ export class LoginService {
   public static USER_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users`;
   public static LOGIN_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/login`;
   public static LOGOUT_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/logout`;
-  
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -25,7 +25,7 @@ export class LoginService {
       name: json.name,
       password: json.password,
       sessionId: json.sessionId
-    }
+    };
     return user;
   }
 
@@ -35,7 +35,7 @@ export class LoginService {
       name: item.name,
       password: item.password,
       sessionId: item.sessionId
-    }
+    };
   }
   logout(params: HttpParams): Observable<User> {
     return this.http.delete<User>(LoginService.LOGOUT_ENDPOINT, { params });
@@ -54,8 +54,6 @@ export class LoginService {
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
   }
-
-
 
   checkCredentials() {
     if (localStorage.getItem('user') === null) {
