@@ -65,7 +65,6 @@ export class MainLoginComponent implements OnInit {
 
   userToCreate(user: User) {
 
-
     this.service.createNewUser(user).subscribe(data => {
       this.loginForm.patchValue({
         user: {

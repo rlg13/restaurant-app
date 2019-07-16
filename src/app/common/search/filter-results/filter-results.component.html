@@ -12,7 +12,7 @@
 
 
     <clr-dg-row *clrDgItems="let order of listOrders">
-      <clr-dg-action-overflow>
+      <clr-dg-action-overflow *ngIf="permitCancel(order) || permitPaid(order)">
         <button class="action-item" *ngIf="permitCancel(order)" (click)="cancelOrder(order)">{{'search.table.CANCEL' | translate}}</button>
         <button class="action-item" *ngIf="permitPaid(order)" (click)="paidOrder(order)">{{'search.table.PAID' | translate}}</button>
       </clr-dg-action-overflow>

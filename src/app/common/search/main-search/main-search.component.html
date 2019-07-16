@@ -24,7 +24,7 @@
   <div class="content-container">
     <div class="content-area">
       <app-filter-search (filterEvent)="findElementsByFilter($event)"></app-filter-search>
-      <app-filter-results [listOrders]="listOrders"></app-filter-results>
+      <app-filter-results (cancelEvent)="cancelOrder($event)" (paidEvent)="paidOrder($event)" [listOrders]="listOrders"></app-filter-results>
     </div>
   </div>
 

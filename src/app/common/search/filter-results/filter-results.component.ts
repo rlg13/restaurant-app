@@ -1,6 +1,6 @@
 import { OrderState } from '../../../model/order-state.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import { Order } from 'src/app/model/order';
 import { ClrDatagridStringFilterInterface } from '@clr/angular';
 import * as moment from 'moment';
@@ -15,6 +15,8 @@ export class FilterResultsComponent implements OnInit {
 
 
   @Input() listOrders: Array<Order>;
+  @Output() cancelEvent: EventEmitter<Order> = new EventEmitter<Order>();
+  @Output() paidEvent: EventEmitter<Order> = new EventEmitter<Order>();
 
   protected orderStateFilter: OrderStateFilter;
 
@@ -25,10 +27,10 @@ export class FilterResultsComponent implements OnInit {
   }
 
   cancelOrder(order) {
-    return;
+    this.cancelEvent.emit(order);
   }
   paidOrder(order) {
-    return;
+    this.paidEvent.emit(order);
   }
 
   permitCancel(order: Order) {

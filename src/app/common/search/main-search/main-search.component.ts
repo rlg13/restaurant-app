@@ -1,12 +1,13 @@
+import { FilterOrderParams } from './../filter-search/filter-order-params';
 import { DetailOrderComponent } from '../../detail/detail-order/detail-order.component';
 import { Order } from '../../../model/order';
 import { HttpParams } from '@angular/common/http';
-import { FilterOrderParams } from '../filter-search/filter-search.component';
 import { LoginService } from 'src/app/services/login.service';
 import { Component, OnInit, ViewChild, LOCALE_ID } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { OrderState } from 'src/app/model/order-state.enum';
 
 
 
@@ -67,9 +68,23 @@ export class MainSearchComponent implements OnInit {
     });
   }
 
-  createOrder(newOrden: Order) {
-    this.serviceOrder.create(newOrden).subscribe(data => {
+  createOrder(newOrder: Order) {
+    this.serviceOrder.create(newOrder).subscribe(data => {
       this.listOrders.push(data);
     });
   }
+
+  cancelOrder(orderToCancel: Order) {
+    this.processOrder(orderToCancel, OrderState.CANCELED);
+  }
+  paidOrder(orderToPaid: Order) {
+    this.processOrder(orderToPaid, OrderState.PAID);
+  }
+
+  processOrder(order: Order, newState: OrderState) {
+    this.serviceOrder.process(order, newState).subscribe(data => {
+      order.state = data.state;
+    });
+  }
+
 }

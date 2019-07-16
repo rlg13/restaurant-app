@@ -4,6 +4,7 @@ import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OrderState } from '../model/order-state.enum';
 
 const ORDERS_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/orders`;
 
@@ -23,7 +24,7 @@ export class OrdersService {
       firstDish: json.firstDish,
       secondDish: json.secondDish,
       dessert: json.dessert
-    }
+    };
     return order;
   }
 
@@ -37,7 +38,7 @@ export class OrdersService {
       firstDish: item.firstDish,
       secondDish: item.secondDish,
       dessert: item.dessert
-    }
+    };
   }
 
   public findAll(params: HttpParams): Observable<Array<Order>> {
@@ -55,4 +56,10 @@ export class OrdersService {
       );
   }
 
+  process(orderToProcess: Order, newState: OrderState): Observable<Order> {
+    return this.http.get(`${ORDERS_ENDPOINT}/${orderToProcess.id}/process/${newState}`)
+      .pipe(
+        map((jsonResponse: any) => this.fromJson(jsonResponse))
+      );
+  }
 }

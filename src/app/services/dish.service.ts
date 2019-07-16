@@ -20,7 +20,7 @@ export class DishService {
       id: json.id,
       name: json.name,
       type: json.type
-    }
+    };
     return user;
   }
 
@@ -29,7 +29,7 @@ export class DishService {
       id: item.id,
       name: item.name,
       type: item.type
-    }
+    };
   }
 
   create(newDish: Dish) {
