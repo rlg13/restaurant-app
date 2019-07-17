@@ -1,6 +1,6 @@
 import { FilterOrderParams } from './filter-order-params';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import * as moment from 'moment';
 
 
@@ -9,7 +9,7 @@ import * as moment from 'moment';
   templateUrl: './filter-search.component.html',
   styleUrls: ['./filter-search.component.scss']
 })
-export class FilterSearchComponent implements OnInit {
+export class FilterSearchComponent implements OnInit, AfterViewInit {
 
   @Output() filterEvent: EventEmitter<FilterOrderParams> = new EventEmitter<FilterOrderParams>();
 
@@ -27,6 +27,10 @@ export class FilterSearchComponent implements OnInit {
       initialDateForm: new FormControl(this.initialDate, [Validators.required]),
       endDateForm: new FormControl(this.endDate, [Validators.required]),
     });
+  }
+
+  ngAfterViewInit() {
+    this.filter();
   }
 
   filter() {

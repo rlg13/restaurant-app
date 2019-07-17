@@ -16,12 +16,12 @@ export class DishService {
   constructor(private http: HttpClient) { }
 
   protected fromJson(json: any): Dish {
-    const user: Dish = {
+    const dish: Dish = new Dish({
       id: json.id,
       name: json.name,
       type: json.type
-    };
-    return user;
+    });
+    return dish;
   }
 
   protected toJson(item: Dish) {

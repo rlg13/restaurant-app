@@ -15,6 +15,7 @@ import { User } from 'src/app/model/user';
   templateUrl: './detail-order.component.html',
   styleUrls: ['./detail-order.component.scss']
 })
+
 export class DetailOrderComponent implements OnInit {
 
   @Input() showModal: boolean;
@@ -48,12 +49,15 @@ export class DetailOrderComponent implements OnInit {
     this.formDetalle = new FormGroup({
       orderDayValue: new FormControl(this.orderDay, [Validators.required])
     });
+
     this.dishService.findByType(DishType.FIRST).subscribe(data => {
       this.firstDishes = data;
     });
+
     this.dishService.findByType(DishType.SECOND).subscribe(data => {
       this.secondDishes = data;
     });
+
     this.dishService.findByType(DishType.DESSERT).subscribe(data => {
       this.desserts = data;
     });
@@ -74,15 +78,15 @@ export class DetailOrderComponent implements OnInit {
 
   calculateStimatedDateToServe() {
     const dateToServeClient = moment(this.orderDay);
-    if (dateToServeClient.isAfter(moment().endOf('day'))) {
+    const now = moment();
+    const isToday = dateToServeClient.isSame(now, 'day');
+    const isTodayBeforeEleven = isToday && now.isBefore('11', 'hour');
+    if (!isToday || isTodayBeforeEleven) {
       this.dayToServe = dateToServeClient.startOf('day').toDate();
-    } else {
-      if (moment().hour() >= 11) {
-        this.dayToServe = dateToServeClient.add(1, 'd').startOf('day').toDate();
-      } else {
-        this.dayToServe = dateToServeClient.startOf('day').toDate();
-      }
+      return;
     }
+
+    this.dayToServe = dateToServeClient.add(1, 'd').startOf('day').toDate();
   }
 
   cleanInputs() {
@@ -97,16 +101,18 @@ export class DetailOrderComponent implements OnInit {
   }
 
   checkSelectDish(): boolean {
-    let returnCheck = true;
-    if (this.firstSeletedValue.id === null
-      && this.secondSeletedValue.id === null
-      && this.dessertSeletedValue.id === null) {
-      this.formDetalle.setErrors({ allmostOne: true });
-      returnCheck = false;
-    } else {
+    const isSelectedAlmostOne = this.firstSeletedValue.isValid ||
+      this.secondSeletedValue.isValid ||
+      this.dessertSeletedValue.isValid;
+
+
+    if (isSelectedAlmostOne) {
       this.formDetalle.setErrors(null);
+      return true;
     }
-    return returnCheck;
+
+    this.formDetalle.setErrors({ allmostOne: true });
+    return false;
   }
 
   saveOrder() {
@@ -134,30 +140,34 @@ export class DetailOrderComponent implements OnInit {
   }
 
   selectDish(dishSelected: Dish) {
-    if (DishType.FIRST === dishSelected.type) {
+    if (dishSelected.isFirst) {
       this.firstSeletedValue = dishSelected;
     }
-    if (DishType.SECOND === dishSelected.type) {
+
+    if (dishSelected.isSecond) {
       this.secondSeletedValue = dishSelected;
     }
-    if (DishType.DESSERT === dishSelected.type) {
+
+    if (dishSelected.isDessert) {
       this.dessertSeletedValue = dishSelected;
     }
     this.checkSelectDish();
   }
 
   saveDish(newDish: Dish) {
-    if (DishType.FIRST === newDish.type) {
+    if (newDish.isFirst) {
       this.firstDishes.push(newDish);
       this.firstSeletedValue = newDish;
       return;
     }
-    if (DishType.SECOND === newDish.type) {
+
+    if (newDish.isSecond) {
       this.secondDishes.push(newDish);
       this.secondSeletedValue = newDish;
       return;
     }
-    if (DishType.DESSERT === newDish.type) {
+
+    if (newDish.isDessert) {
       this.desserts.push(newDish);
       this.dessertSeletedValue = newDish;
       return;
