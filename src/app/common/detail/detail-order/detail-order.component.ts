@@ -1,3 +1,4 @@
+import { AlmostOneDishValidator } from './almost-one-dish-validator';
 import { SelectDishComponent } from './../select-dish/select-dish.component';
 import { CreateDishComponent } from './../create-dish/create-dish.component';
 import { DishType } from './../../../model/dish-type.enum';
@@ -9,6 +10,8 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { Order } from 'src/app/model/order';
 import * as moment from 'moment';
 import { User } from 'src/app/model/user';
+
+
 
 @Component({
   selector: 'app-detail-order',
@@ -30,9 +33,6 @@ export class DetailOrderComponent implements OnInit {
   firstDishes: Array<Dish>;
   secondDishes: Array<Dish>;
   desserts: Array<Dish>;
-  firstSeletedValue: Dish;
-  secondSeletedValue: Dish;
-  dessertSeletedValue: Dish;
   orderDay: Date;
   dayToServe: Date;
   formDetalle: FormGroup;
@@ -47,8 +47,12 @@ export class DetailOrderComponent implements OnInit {
     this.orderDay = moment().toDate();
     this.calculateStimatedDateToServe();
     this.formDetalle = new FormGroup({
-      orderDayValue: new FormControl(this.orderDay, [Validators.required])
+      orderDayValue: new FormControl(this.orderDay, [Validators.required]),
+      firstSeletedValue: new FormControl(this.fistComponent.emptyDish, []),
+      secondSeletedValue: new FormControl(this.secondComponent.emptyDish, []),
+      dessertSeletedValue: new FormControl(this.dessertComponent.emptyDish, [])
     });
+    this.formDetalle.setValidators(AlmostOneDishValidator);
 
     this.dishService.findByType(DishType.FIRST).subscribe(data => {
       this.firstDishes = data;
@@ -92,40 +96,37 @@ export class DetailOrderComponent implements OnInit {
   cleanInputs() {
     this.orderDay = moment().toDate();
     this.calculateStimatedDateToServe();
-    this.firstSeletedValue = this.fistComponent.emptyDish;
-    this.secondSeletedValue = this.secondComponent.emptyDish;
-    this.dessertSeletedValue = this.dessertComponent.emptyDish;
-    this.fistComponent.itemSelected = this.fistComponent.emptyDish;
-    this.secondComponent.itemSelected = this.secondComponent.emptyDish;
-    this.dessertComponent.itemSelected = this.dessertComponent.emptyDish;
+    this.fistComponent.cleanSelect();
+    this.secondComponent.cleanSelect();
+    this.dessertComponent.cleanSelect();
   }
-
-  checkSelectDish(): boolean {
-    const isSelectedAlmostOne = this.firstSeletedValue.isValid ||
-      this.secondSeletedValue.isValid ||
-      this.dessertSeletedValue.isValid;
-
-
-    if (isSelectedAlmostOne) {
-      this.formDetalle.setErrors(null);
-      return true;
-    }
-
-    this.formDetalle.setErrors({ allmostOne: true });
-    return false;
-  }
-
-  saveOrder() {
-    if (!this.checkSelectDish()) {
+  /*
+    checkSelectDish(): boolean {
+      const isSelectedAlmostOne = this.firstSeletedValue.isValid ||
+        this.secondSeletedValue.isValid ||
+        this.dessertSeletedValue.isValid;
+  
+  
+      if (isSelectedAlmostOne) {
+        this.formDetalle.setErrors(null);
+        return true;
+      }
+  
+      this.formDetalle.setErrors({ allmostOne: true });
       return false;
     }
+  */
+  saveOrder() {
+    /*   if (!this.checkSelectDish()) {
+         return false;
+       }*/
 
     const newOrderItem: Order = new Order({
       user: new User({ id: localStorage.getItem('userId'), name: localStorage.getItem('user') }),
       dayOrder: this.orderDay,
-      firstDish: this.firstSeletedValue,
-      secondDish: this.secondSeletedValue,
-      dessert: this.dessertSeletedValue
+      firstDish: this.formDetalle.get(['firstSeletedValue']).value,
+      secondDish: this.formDetalle.get(['secondSeletedValue']).value,
+      dessert: this.formDetalle.get(['dessertSeletedValue']).value,
     });
     this.newOrderEvent.emit(newOrderItem);
     this.showModal = false;
@@ -138,38 +139,38 @@ export class DetailOrderComponent implements OnInit {
     });
     this.newDish.showAddDish = true;
   }
-
-  selectDish(dishSelected: Dish) {
-    if (dishSelected.isFirst) {
-      this.firstSeletedValue = dishSelected;
-    }
-
-    if (dishSelected.isSecond) {
-      this.secondSeletedValue = dishSelected;
-    }
-
-    if (dishSelected.isDessert) {
-      this.dessertSeletedValue = dishSelected;
-    }
-    this.checkSelectDish();
-  }
+  /*
+    selectDish(dishSelected: Dish) {
+      if (dishSelected.isFirst) {
+        this.firstSeletedValue = dishSelected;
+      }
+  
+      if (dishSelected.isSecond) {
+        this.secondSeletedValue = dishSelected;
+      }
+  
+      if (dishSelected.isDessert) {
+        this.dessertSeletedValue = dishSelected;
+      }
+      this.checkSelectDish();
+    }*/
 
   saveDish(newDish: Dish) {
     if (newDish.isFirst) {
       this.firstDishes.push(newDish);
-      this.firstSeletedValue = newDish;
+      this.formDetalle.patchValue({ firstSeletedValue: newDish });
       return;
     }
 
     if (newDish.isSecond) {
       this.secondDishes.push(newDish);
-      this.secondSeletedValue = newDish;
+      this.formDetalle.patchValue({ secondSeletedValue: newDish });
       return;
     }
 
     if (newDish.isDessert) {
       this.desserts.push(newDish);
-      this.dessertSeletedValue = newDish;
+      this.formDetalle.patchValue({ dessertSeletedValue: newDish });
       return;
     }
   }

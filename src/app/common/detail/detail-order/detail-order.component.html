@@ -20,16 +20,16 @@
         </clr-input-container>
       </div>
 
-      <app-select-dish #fistComponent [type]="getTypeEnum().FIRST" [items]="firstDishes" [itemSelected]="firstSeletedValue"
-        [labelName]="'search.modalDetail.FIRST_ORDER'" (selectDish)="selectDish($event)" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #fistComponent [type]="getTypeEnum().FIRST" [items]="firstDishes" [form]="formDetalle" nameControl="firstSeletedValue"
+        labelName="search.modalDetail.FIRST_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
-      <app-select-dish #secondComponent [type]="getTypeEnum().SECOND" [items]="secondDishes" [itemSelected]="secondSeletedValue"
-        [labelName]="'search.modalDetail.SECOND_ORDER'" (selectDish)="selectDish($event)" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #secondComponent [type]="getTypeEnum().SECOND" [items]="secondDishes" [form]="formDetalle" nameControl="secondSeletedValue"
+        labelName="search.modalDetail.SECOND_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
-      <app-select-dish #dessertComponent [type]="getTypeEnum().DESSERT" [items]="desserts" [itemSelected]="dessertSeletedValue"
-        [labelName]="'search.modalDetail.DESSERT_ORDER'" (selectDish)="selectDish($event)" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #dessertComponent [type]="getTypeEnum().DESSERT" [items]="desserts" [form]="formDetalle" nameControl="dessertSeletedValue"
+        labelName="search.modalDetail.DESSERT_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
       <div id="allmostOneError" *ngIf="formDetalle.errors?.allmostOne">
