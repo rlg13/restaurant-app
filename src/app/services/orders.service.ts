@@ -6,12 +6,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderState } from '../model/order-state.enum';
 
-const ORDERS_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/orders`;
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
+
+  public static ORDERS_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/orders`;
+
   constructor(private http: HttpClient) { }
 
   protected fromJson(json: any): Order {
@@ -43,21 +46,21 @@ export class OrdersService {
 
   public findAll(params: HttpParams): Observable<Array<Order>> {
 
-    return this.http.get(ORDERS_ENDPOINT, { params })
+    return this.http.get(OrdersService.ORDERS_ENDPOINT, { params })
       .pipe(
         map((array: Array<Order>) => array.map ? array.map(item =>
           this.fromJson(item ? item : {})) : [])
       );
   }
   create(newOrder: Order) {
-    return this.http.post<Order>(ORDERS_ENDPOINT, this.toJson(newOrder))
+    return this.http.post<Order>(OrdersService.ORDERS_ENDPOINT, this.toJson(newOrder))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );
   }
 
   process(orderToProcess: Order, newState: OrderState): Observable<Order> {
-    return this.http.get(`${ORDERS_ENDPOINT}/${orderToProcess.id}/process/${newState}`)
+    return this.http.get(`${OrdersService.ORDERS_ENDPOINT}/${orderToProcess.id}/process/${newState}`)
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))
       );

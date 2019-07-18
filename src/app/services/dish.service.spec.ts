@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { DishService } from './dish.service';
+import { Dish } from '../model/dish';
 
 
 describe('DishService', () => {
@@ -25,22 +26,20 @@ describe('DishService', () => {
   });
 
   it('should be return observable<Dish>', () => {
-    const dummyDish = [
-      { id: 1, type: DishType.FIRST, name: "Ensalada" },
-      { id: 1, type: DishType.FIRST, name: "Entremeses" },
+    const DUMMY_DISH = [
+      new Dish({ id: 1, type: DishType.FIRST, name: 'Salad' }),
+      new Dish({ id: 1, type: DishType.FIRST, name: 'Gazpacho' })
     ];
-
+    
 
     service.findByType(DishType.FIRST).subscribe(dish => {
       expect(dish.length).toBe(2);
-      expect(dish).toEqual(dish);
+      expect(dish).toEqual(DUMMY_DISH);
     });
 
-    const req = httpMock.expectOne(`${environment.endpointURL}${environment.endpointApi}${DishService.DISH_TYPE_ENDPOINT}${DishType.FIRST}`);
-    expect(req.request.method).toBe("GET");
-    req.flush(dummyDish);
-
-
+    const req = httpMock.expectOne(`${DishService.DISH_TYPE_ENDPOINT}${DishType.FIRST}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(DUMMY_DISH);
   });
 
 });
