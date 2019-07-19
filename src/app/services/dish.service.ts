@@ -39,7 +39,6 @@ export class DishService {
       );
   }
 
-
   findByType(typeDish: string) {
     return this.http.get(`${DishService.DISH_TYPE_ENDPOINT}${typeDish}`)
       .pipe(

@@ -1,8 +1,6 @@
-import { environment } from './../../environments/environment';
 import { DishType } from './../model/dish-type.enum';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
 import { DishService } from './dish.service';
 import { Dish } from '../model/dish';
 
@@ -30,7 +28,7 @@ describe('DishService', () => {
       new Dish({ id: 1, type: DishType.FIRST, name: 'Salad' }),
       new Dish({ id: 1, type: DishType.FIRST, name: 'Gazpacho' })
     ];
-    
+
 
     service.findByType(DishType.FIRST).subscribe(dish => {
       expect(dish.length).toBe(2);

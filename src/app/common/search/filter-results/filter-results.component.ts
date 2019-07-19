@@ -9,7 +9,8 @@ import { OrderStateFilter } from './order-state-filter';
 @Component({
   selector: 'app-filter-results',
   templateUrl: './filter-results.component.html',
-  styleUrls: ['./filter-results.component.scss']
+  styleUrls: ['./filter-results.component.scss'],
+  providers: [OrderStateFilter]
 })
 export class FilterResultsComponent implements OnInit {
 
@@ -18,12 +19,9 @@ export class FilterResultsComponent implements OnInit {
   @Output() cancelEvent: EventEmitter<Order> = new EventEmitter<Order>();
   @Output() paidEvent: EventEmitter<Order> = new EventEmitter<Order>();
 
-  protected orderStateFilter: OrderStateFilter;
-
-  constructor(private translator: TranslateService) { }
+  constructor(private translator: TranslateService, private orderStateFilter: OrderStateFilter) { }
 
   ngOnInit() {
-    this.orderStateFilter = new OrderStateFilter(this.translator);
   }
 
   cancelOrder(order) {
