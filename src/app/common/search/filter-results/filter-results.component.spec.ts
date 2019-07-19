@@ -1,25 +1,45 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ClarityModule } from '@clr/angular';
+import { TestBed } from '@angular/core/testing';
 
 import { FilterResultsComponent } from './filter-results.component';
+import { Order } from 'src/app/model/order';
+import { OrderState } from 'src/app/model/order-state.enum';
 
 describe('FilterResultsComponent', () => {
-  let component: FilterResultsComponent;
-  let fixture: ComponentFixture<FilterResultsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FilterResultsComponent ]
-    })
-    .compileComponents();
-  }));
+  const ORDER_DELIVERED: Order = ({ id: 1, dayOrder: new Date(), dayToServe: new Date(), state: OrderState.DELIVERED });
+  const ORDER_RECEIVED: Order = ({ id: 1, dayOrder: new Date(), dayToServe: new Date(), state: OrderState.RECEIVED });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterResultsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      imports: [
+        ClarityModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()],
+      declarations: [FilterResultsComponent]
+    }).compileComponents();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should be permit paid order', () => {
+    const component = TestBed.createComponent(FilterResultsComponent).componentInstance;
+    expect(component.permitPaid(ORDER_DELIVERED)).toBe(true);
+  });
+  it('should not  be permit paid', () => {
+    const component = TestBed.createComponent(FilterResultsComponent).componentInstance;
+    expect(component.permitPaid(ORDER_RECEIVED)).toBe(false);
+  });
+
+
+  it('should not be permit cancel order', () => {
+    const component = TestBed.createComponent(FilterResultsComponent).componentInstance;
+    expect(component.permitCancel(ORDER_DELIVERED)).toBe(false);
+  });
+  it('should be cancel order', () => {
+    const component = TestBed.createComponent(FilterResultsComponent).componentInstance;
+    expect(component.permitCancel(ORDER_RECEIVED)).toBe(true);
   });
 });

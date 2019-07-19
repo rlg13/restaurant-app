@@ -100,27 +100,8 @@ export class DetailOrderComponent implements OnInit {
     this.secondComponent.cleanSelect();
     this.dessertComponent.cleanSelect();
   }
-  /*
-    checkSelectDish(): boolean {
-      const isSelectedAlmostOne = this.firstSeletedValue.isValid ||
-        this.secondSeletedValue.isValid ||
-        this.dessertSeletedValue.isValid;
-  
-  
-      if (isSelectedAlmostOne) {
-        this.formDetalle.setErrors(null);
-        return true;
-      }
-  
-      this.formDetalle.setErrors({ allmostOne: true });
-      return false;
-    }
-  */
-  saveOrder() {
-    /*   if (!this.checkSelectDish()) {
-         return false;
-       }*/
 
+  saveOrder() {
     const newOrderItem: Order = new Order({
       user: new User({ id: localStorage.getItem('userId'), name: localStorage.getItem('user') }),
       dayOrder: this.orderDay,
@@ -139,21 +120,6 @@ export class DetailOrderComponent implements OnInit {
     });
     this.newDish.showAddDish = true;
   }
-  /*
-    selectDish(dishSelected: Dish) {
-      if (dishSelected.isFirst) {
-        this.firstSeletedValue = dishSelected;
-      }
-  
-      if (dishSelected.isSecond) {
-        this.secondSeletedValue = dishSelected;
-      }
-  
-      if (dishSelected.isDessert) {
-        this.dessertSeletedValue = dishSelected;
-      }
-      this.checkSelectDish();
-    }*/
 
   saveDish(newDish: Dish) {
     if (newDish.isFirst) {

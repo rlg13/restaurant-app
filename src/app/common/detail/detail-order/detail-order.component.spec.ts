@@ -1,25 +1,67 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Observable, of } from 'rxjs';
+import { DishService } from './../../../services/dish.service';
+import { Dish } from 'src/app/model/dish';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginService } from './../../../services/login.service';
+import { CreateDishComponent } from './../create-dish/create-dish.component';
+import { SelectDishComponent } from './../select-dish/select-dish.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ClarityModule } from '@clr/angular';
+import { TestBed } from '@angular/core/testing';
 
 import { DetailOrderComponent } from './detail-order.component';
+import { DishType } from 'src/app/model/dish-type.enum';
+
+class DishServiceStub {
+  public findByType(dishType: DishType): Observable<Array<Dish>> {
+    return of(new Array<Dish>());
+  }
+}
 
 describe('DetailOrderComponent', () => {
+  const DUMMY_DISH: Dish = new Dish({ id: 1, name: 'Salad', type: DishType.FIRST });
   let component: DetailOrderComponent;
-  let fixture: ComponentFixture<DetailOrderComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DetailOrderComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetailOrderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      imports: [
+        ClarityModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()],
+      declarations: [DetailOrderComponent, SelectDishComponent, CreateDishComponent],
+      providers: [
+        LoginService,
+        {
+          provide: DishService,
+          useClass: DishServiceStub,
+          deps: []
+        }]
+    }).compileComponents();
+    component = TestBed.createComponent(DetailOrderComponent).componentInstance;
+    component.firstComponent =  TestBed.createComponent(SelectDishComponent).componentInstance;
+    component.secondComponent =  TestBed.createComponent(SelectDishComponent).componentInstance;
+    component.dessertComponent =  TestBed.createComponent(SelectDishComponent).componentInstance;
+    component.ngOnInit();
+
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should retrieve type enum', () => {
+    expect(component.getTypeEnum()).toBeTruthy();
+  });
+
+  it('should add new dish to array', () => {
+    component.ngOnInit();
+    component.saveDish(DUMMY_DISH);
+    expect(component.firstDishes.length).toBe(1);
+    expect(component.secondDishes.length).toBe(0);
+    expect(component.desserts.length).toBe(0);
+  });
+
 });

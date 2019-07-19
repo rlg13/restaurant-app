@@ -1,25 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { TestBed } from '@angular/core/testing';
+import { ClarityModule } from '@clr/angular';
 import { SelectDishComponent } from './select-dish.component';
 
 describe('SelectDishComponent', () => {
-  let component: SelectDishComponent;
-  let fixture: ComponentFixture<SelectDishComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SelectDishComponent ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectDishComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      imports: [
+        ClarityModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot()],
+      declarations: [SelectDishComponent]
+    }).compileComponents();
   });
 
+
   it('should create', () => {
+    const component = TestBed.createComponent(SelectDishComponent);
     expect(component).toBeTruthy();
   });
 });
