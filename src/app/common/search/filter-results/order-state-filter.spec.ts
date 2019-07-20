@@ -1,9 +1,10 @@
 import { Injector } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
-import { Order } from 'src/app/model/order';
 
+import { of, Observable } from 'rxjs';
+
+import { Order } from './../../../model/order';
 import { OrderState } from './../../../model/order-state.enum';
 import { OrderStateFilter } from './order-state-filter';
 
@@ -17,11 +18,11 @@ const TRANSLATIONS = {
 };
 
 class TranslateServiceStub {
-  public get(key: any): any {
+  public get(key: string): Observable<string> {
     return of(key);
   }
 
-  public instant(key: any): any {
+  public instant(key: string): string {
     return TRANSLATIONS[key];
   }
 }

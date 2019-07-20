@@ -2,12 +2,12 @@
   <clr-select-container class="clr-col-8" [formGroup]="form">
     <label class="clr-col-6">{{ labelName | translate}}</label>
     <select class="clr-col-4 selectDish" clrSelect  [formControlName]="nameControl">
-      <option class="options" [ngValue]="emptyDish">{{'search.modalDetail.NONE' | translate}}</option>
-      <option class="options" *ngFor="let item of items" [ngValue]="item">
-        {{item.name}}
+      <option class="options" [ngValue]="emptyDish">{{'SEARCH.MODAL_DETAIL.NONE' | translate}}</option>
+      <option class="options" *ngFor="let dish of dishes" [ngValue]="dish">
+        {{dish.name}}
       </option>
     </select>
   </clr-select-container>
   <button type="button" class="btn btn-primary-outline"
-    (click)="openNewDish()">{{'common.BTN_ADD' | translate}}</button>
+    (click)="openNewDish()">{{'COMMON.BTN_ADD' | translate}}</button>
 </div>

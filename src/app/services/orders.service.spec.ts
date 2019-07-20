@@ -1,8 +1,8 @@
-import { Dish } from './../model/dish';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { OrdersService } from './orders.service';
+import { Dish } from '../model/dish';
 import { Order } from '../model/order';
 import { User } from '../model/user';
 import { OrderState } from '../model/order-state.enum';

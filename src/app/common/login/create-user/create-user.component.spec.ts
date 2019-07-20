@@ -1,7 +1,9 @@
-import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
+
 import { ClarityModule } from '@clr/angular';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CreateUserComponent } from './create-user.component';
 

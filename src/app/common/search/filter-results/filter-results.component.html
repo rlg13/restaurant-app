@@ -1,20 +1,20 @@
 <div id="search-result">
-  <clr-datagrid>
-    <clr-dg-column>{{'search.table.ID' | translate}}</clr-dg-column>
-    <clr-dg-column>{{'search.table.DATE' | translate}}</clr-dg-column>
-    <clr-dg-column>{{'search.table.DATE_TO_SERVE' | translate}}</clr-dg-column>
-    <clr-dg-column [clrDgField]="'state'" >{{'search.table.STATE' | translate}}
+  <clr-datagrid id="datagrid-search">
+    <clr-dg-column>{{'SEARCH.TABLE.ID' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'SEARCH.TABLE.DATE' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'SEARCH.TABLE.DATE_TO_SERVE' | translate}}</clr-dg-column>
+    <clr-dg-column [clrDgField]="'state'" >{{'SEARCH.TABLE.STATE' | translate}}
         <clr-dg-string-filter [clrDgStringFilter]="orderStateFilter"></clr-dg-string-filter>        
     </clr-dg-column>
-    <clr-dg-column>{{'search.table.FIRST' | translate}}</clr-dg-column>
-    <clr-dg-column>{{'search.table.SECOND' | translate}}</clr-dg-column>
-    <clr-dg-column>{{'search.table.DESSERT' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'SEARCH.TABLE.FIRST' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'SEARCH.TABLE.SECOND' | translate}}</clr-dg-column>
+    <clr-dg-column>{{'SEARCH.TABLE.DESSERT' | translate}}</clr-dg-column>
 
 
     <clr-dg-row *clrDgItems="let order of listOrders">
       <clr-dg-action-overflow *ngIf="permitCancel(order) || permitPaid(order)">
-        <button class="action-item" *ngIf="permitCancel(order)" (click)="cancelOrder(order)">{{'search.table.CANCEL' | translate}}</button>
-        <button class="action-item" *ngIf="permitPaid(order)" (click)="paidOrder(order)">{{'search.table.PAID' | translate}}</button>
+        <button class="action-item" *ngIf="permitCancel(order)" (click)="cancelOrder(order)">{{'SEARCH.TABLE.CANCEL' | translate}}</button>
+        <button class="action-item" *ngIf="permitPaid(order)" (click)="paidOrder(order)">{{'SEARCH.TABLE.PAID' | translate}}</button>
       </clr-dg-action-overflow>
       <clr-dg-cell>{{order.id}}</clr-dg-cell>
       <clr-dg-cell>{{order.dayOrder | date: 'dd/MM/yyyy'}}</clr-dg-cell>
@@ -25,7 +25,7 @@
       <clr-dg-cell>{{order.dessert?.name}}</clr-dg-cell>
     </clr-dg-row>   
     <clr-dg-footer>
-        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'common.OF' | translate}} {{pagination.totalItems}} {{'search.table.FOOTER' | translate}}
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{'COMMON.OF' | translate}} {{pagination.totalItems}} {{'SEARCH.TABLE.FOOTER' | translate}}
       <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>         
   </clr-dg-footer>  
   </clr-datagrid>

@@ -1,6 +1,9 @@
-import { FilterOrderParams } from './filter-order-params';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { FilterOrderParams } from './filter-order-params';
+import { ConstantsStorage } from './../../../utils/constants-storage';
+
 import * as moment from 'moment';
 
 
@@ -19,7 +22,7 @@ export class FilterSearchComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initialDate = moment().subtract(3, 'd').toDate();
     this.endDate = moment().add(4, 'd').toDate();
 
@@ -29,25 +32,26 @@ export class FilterSearchComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.filter();
   }
 
-  filter() {
+  filter(): void {
     const params: FilterOrderParams = new FilterOrderParams({
       initialDate: this.initialDate,
       endDate: this.endDate,
-      user: localStorage.getItem('userId')
+      user: localStorage.getItem(ConstantsStorage.USER_ID)
     });
     this.filterEvent.emit(params);
   }
 
-  checkDates() {
+  checkDates(): void {
 
     if (!this.initialDate) {
       this.searchForm.patchValue({
         initialDateForm: null
       });
+
       if (!this.endDate) {
         this.searchForm.patchValue({
           endDateForm: null

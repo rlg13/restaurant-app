@@ -1,16 +1,19 @@
+
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { AlmostOneDishValidator } from './almost-one-dish-validator';
 import { SelectDishComponent } from './../select-dish/select-dish.component';
 import { CreateDishComponent } from './../create-dish/create-dish.component';
+import { Dish } from './../../../model/dish';
 import { DishType } from './../../../model/dish-type.enum';
+import { Order } from './../../../model/order';
+import { User } from './../../../model/user';
 import { DishService } from './../../../services/dish.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Dish } from 'src/app/model/dish';
+import { ConstantsStorage } from './../../../utils/constants-storage';
+import { Constants } from './../utils/constants';
 
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Order } from 'src/app/model/order';
 import * as moment from 'moment';
-import { User } from 'src/app/model/user';
-
 
 
 @Component({
@@ -20,7 +23,6 @@ import { User } from 'src/app/model/user';
 })
 
 export class DetailOrderComponent implements OnInit {
-
   @Input() showModal: boolean;
   @ViewChild('newDish', { static: true }) newDish: CreateDishComponent;
 
@@ -39,11 +41,11 @@ export class DetailOrderComponent implements OnInit {
 
   constructor(private dishService: DishService) { }
 
-  getTypeEnum() {
+  getTypeEnum(): typeof DishType {
     return DishType;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.orderDay = moment().toDate();
     this.calculateStimatedDateToServe();
     this.detailForm = new FormGroup({
@@ -67,7 +69,7 @@ export class DetailOrderComponent implements OnInit {
     });
   }
 
-  checkDates() {
+  checkDates(): void {
     const dayBefore = moment(this.orderDay).startOf('day');
     if (!this.orderDay || dayBefore.isBefore(moment().startOf('day'))) {
       this.detailForm.patchValue({
@@ -76,24 +78,22 @@ export class DetailOrderComponent implements OnInit {
       this.dayToServe = null;
     } else {
       this.calculateStimatedDateToServe();
-
     }
   }
 
-  calculateStimatedDateToServe() {
+  calculateStimatedDateToServe(): void {
     const dateToServeClient = moment(this.orderDay);
     const now = moment();
     const isToday = dateToServeClient.isSame(now, 'day');
-    const isTodayBeforeEleven = isToday && now.isBefore('11', 'hour');
+    const isTodayBeforeEleven = isToday && now.isBefore(Constants.ELEVEN, 'hour');
     if (!isToday || isTodayBeforeEleven) {
       this.dayToServe = dateToServeClient.startOf('day').toDate();
       return;
     }
-
     this.dayToServe = dateToServeClient.add(1, 'd').startOf('day').toDate();
   }
 
-  cleanInputs() {
+  cleanInputs(): void {
     this.orderDay = moment().toDate();
     this.calculateStimatedDateToServe();
     this.firstComponent.cleanSelect();
@@ -101,19 +101,19 @@ export class DetailOrderComponent implements OnInit {
     this.dessertComponent.cleanSelect();
   }
 
-  saveOrder() {
+  saveOrder(): void {
     const newOrderItem: Order = new Order({
-      user: new User({ id: localStorage.getItem('userId'), name: localStorage.getItem('user') }),
+      user: new User({ id: localStorage.getItem(ConstantsStorage.USER_ID), name: localStorage.getItem(ConstantsStorage.USER) }),
       dayOrder: this.orderDay,
-      firstDish: this.detailForm.get(['firstSeletedValue']).value,
-      secondDish: this.detailForm.get(['secondSeletedValue']).value,
-      dessert: this.detailForm.get(['dessertSeletedValue']).value,
+      firstDish: this.detailForm.get([Constants.FIRST_DISH]).value,
+      secondDish: this.detailForm.get([Constants.SECOND_DISH]).value,
+      dessert: this.detailForm.get([Constants.DESSERT]).value,
     });
     this.newOrderEvent.emit(newOrderItem);
     this.showModal = false;
   }
 
-  openCreateDish(typeDish: DishType) {
+  openCreateDish(typeDish: DishType): void {
     this.newDish.typeDish = typeDish;
     this.newDish.formCreateDish.patchValue({
       newDishName: ''
@@ -121,7 +121,7 @@ export class DetailOrderComponent implements OnInit {
     this.newDish.showAddDish = true;
   }
 
-  saveDish(newDish: Dish) {
+  saveDish(newDish: Dish): void {
     if (newDish.isFirst) {
       this.firstDishes.push(newDish);
       this.detailForm.patchValue({ firstSeletedValue: newDish });

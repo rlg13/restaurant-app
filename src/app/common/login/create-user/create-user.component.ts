@@ -1,7 +1,7 @@
-import { LoginService } from 'src/app/services/login.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { User } from 'src/app/model/user';
+
+import { User } from './../../../model/user';
 
 
 @Component({
@@ -26,10 +26,9 @@ export class CreateUserComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
-  cancelCreateUser() {
+  cancelCreateUser(): void {
     this.newUserForm.patchValue({
       userCreate: {
         username: '',
@@ -39,7 +38,7 @@ export class CreateUserComponent implements OnInit {
     this.showNewUserModal = false;
   }
 
-  createUser() {
+  createUser(): void {
     this.userCreate = new User({ name: this.newUserForm.value.userCreate.username, password: this.newUserForm.value.userCreate.password });
     this.createEvent.emit(this.userCreate);
     this.showNewUserModal = false;

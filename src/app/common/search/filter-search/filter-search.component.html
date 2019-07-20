@@ -3,20 +3,20 @@
     <div class="clr-row">
 
       <clr-date-container class=" clr-col-5 ">
-        <label>{{'search.INITIAL_DATE' | translate}}</label>
+        <label>{{'SEARCH.INITIAL_DATE' | translate}}</label>
         <input [(clrDate)]="initialDate" formControlName="initialDateForm" (change)="checkDates()" name="initialDate" />
-        <clr-control-error>{{'common.DATE_INVALID' | translate}}
+        <clr-control-error>{{'COMMON.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>
 
       <clr-date-container class=" clr-col-5 ">
-        <label>{{'search.END_DATE' | translate}}</label>
+        <label>{{'SEARCH.END_DATE' | translate}}</label>
         <input [(clrDate)]="endDate" formControlName="endDateForm" (change)="checkDates()" name="endDate" />
-        <clr-control-error>{{'common.DATE_INVALID' | translate}}
+        <clr-control-error>{{'COMMON.DATE_INVALID' | translate}}
         </clr-control-error>
       </clr-date-container>
       <button type="submit" class="btn btn-success" (click)="filter()"
-        [disabled]="searchForm.invalid">{{'search.FILTER_BUTTON' | translate}}</button>
+        [disabled]="searchForm.invalid">{{'SEARCH.FILTER_BUTTON' | translate}}</button>
     </div>
   </form>
 </div>

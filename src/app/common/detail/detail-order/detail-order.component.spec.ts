@@ -1,17 +1,20 @@
-import { Observable, of } from 'rxjs';
-import { DishService } from './../../../services/dish.service';
-import { Dish } from 'src/app/model/dish';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginService } from './../../../services/login.service';
+import { TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { ClarityModule } from '@clr/angular';
+
+import { TranslateModule } from '@ngx-translate/core';
+
+import { Observable, of } from 'rxjs';
+
 import { CreateDishComponent } from './../create-dish/create-dish.component';
 import { SelectDishComponent } from './../select-dish/select-dish.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ClarityModule } from '@clr/angular';
-import { TestBed } from '@angular/core/testing';
-
 import { DetailOrderComponent } from './detail-order.component';
-import { DishType } from 'src/app/model/dish-type.enum';
+import { DishType } from './../../../model/dish-type.enum';
+import { Dish } from './../../../model/dish';
+import { DishService } from './../../../services/dish.service';
+import { LoginService } from './../../../services/login.service';
 
 class DishServiceStub {
   public findByType(dishType: DishType): Observable<Array<Dish>> {
@@ -44,9 +47,7 @@ describe('DetailOrderComponent', () => {
     component.secondComponent =  TestBed.createComponent(SelectDishComponent).componentInstance;
     component.dessertComponent =  TestBed.createComponent(SelectDishComponent).componentInstance;
     component.ngOnInit();
-
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();

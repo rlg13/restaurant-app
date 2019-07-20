@@ -5,7 +5,7 @@
     "PAID": "Pagado",
     "CANCELED": "Cancelado",
     
-    "common":{
+    "COMMON":{
         "DATE_INVALID": "La fecha introducida no es valida",
         "DATE_INVALID_TO_PAST": "La fecha introducida no es valida o es anterior al dia de hoy",
         "CHECK_REQUIRED": "El campo es requerido",
@@ -16,7 +16,7 @@
         "BTN_ADD": "Añadir",
         "OF": "de"
     },
-    "login": {
+    "LOGIN": {
         "TITLE": "Bienvenido a",
         "NAME_APP": "Management Restaurant Application",        
         "USERNAME": "Usuario",
@@ -27,14 +27,14 @@
         "DUPLICATE": "Usuario ya existente. Por favor, elija otro nombre",
         "OTHER_ERRORS": "Servicio de creacion indisponible, por favor intentelo mas tarde"
     },
-    "search": {
+    "SEARCH": {
         "TITLE": "Bienvenido",
         "NAV_TITLE": "Búsqueda de pedidos",
         "INITIAL_DATE": "Fecha inicio",
         "END_DATE": "Fecha fin",
         "FILTER_BUTTON": "Buscar",
         "CREATE_BUTTON": "Crear pedido",
-        "table": {
+        "TABLE": {
             "ID": "ID",
             "DATE": "Fecha Solicitud",
             "DATE_TO_SERVE": "Fecha Servir",
@@ -48,7 +48,7 @@
             "ORDERS_BY_PAGE": "Pedidos por página"
 
         },
-        "modalDetail": {
+        "MODAL_DETAIL": {
             "CREATE_ORDER": "Crear pedido",
             "SHOW_ORDER": "Detalle pedido",
             "DATE_ORDER" :"Fecha solicitud",
@@ -59,7 +59,7 @@
             "NONE": "Ninguno",
             "ERROR_ALMOST_ONE_DISH": "Se debe seleccionar al menos un plato"
         },
-        "modalDishCreate": {
+        "MODAL_DISH_CREATE": {
             "CREATE_DISH" :"Introducir nuevo plato o postre",
             "NEW_DISH": "Nuevo plato o postre",
             "DISH_INVALID": "Debe introducir un nombre del nuevo plato"

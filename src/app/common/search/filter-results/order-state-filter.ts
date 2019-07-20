@@ -1,7 +1,8 @@
-import { Order } from 'src/app/model/order';
+import { Injectable } from '@angular/core';
 import { ClrDatagridStringFilterInterface } from '@clr/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Injectable } from '@angular/core';
+
+import { Order } from 'src/app/model/order';
 
 @Injectable()
 export class OrderStateFilter implements ClrDatagridStringFilterInterface<Order> {

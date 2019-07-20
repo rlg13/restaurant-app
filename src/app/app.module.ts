@@ -1,14 +1,13 @@
-import { DetailOrderComponent } from './common/detail/detail-order/detail-order.component';
-import { SessionInterceptor } from './interceptors/session-interceptor';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { ClarityModule } from '@clr/angular';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +19,8 @@ import { MainSearchComponent } from './common/search/main-search/main-search.com
 import { CreateUserComponent } from './common/login/create-user/create-user.component';
 import { MainLoginComponent } from './common/login/main-login/main-login.component';
 import { SelectDishComponent } from './common/detail/select-dish/select-dish.component';
+import { DetailOrderComponent } from './common/detail/detail-order/detail-order.component';
+import { SessionInterceptor } from './interceptors/session-interceptor';
 
 @NgModule({
   declarations: [

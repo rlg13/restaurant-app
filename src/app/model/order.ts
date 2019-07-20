@@ -1,6 +1,7 @@
 import { User } from './user';
 import { OrderState } from './order-state.enum';
 import { Dish } from './dish';
+
 export class Order {
     id?: number;
     user?: User;

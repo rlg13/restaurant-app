@@ -1,11 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { User } from './../model/user';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { map, flatMap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { environment } from 'src/environments/environment';
+import { User } from './../model/user';
+import { ConstantsStorage } from './../utils/constants-storage';
+import { ConstantsRouter } from '../utils/constants-router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,6 @@ export class LoginService {
   public static USER_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users`;
   public static LOGIN_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/login`;
   public static LOGOUT_ENDPOINT = `${environment.endpointURL}${environment.endpointApi}/users/logout`;
-
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -37,6 +39,7 @@ export class LoginService {
       sessionId: item.sessionId
     };
   }
+
   logout(params: HttpParams): Observable<User> {
     return this.http.delete<User>(LoginService.LOGOUT_ENDPOINT, { params });
   }
@@ -55,14 +58,14 @@ export class LoginService {
       );
   }
 
-  checkCredentials() {
-    if (localStorage.getItem('user') === null) {
-      this.router.navigate(['login']);
+  checkCredentials(): void {
+    if (localStorage.getItem(ConstantsStorage.USER) === null) {
+      this.router.navigate([ConstantsRouter.LOGIN]);
     }
   }
 
-  getUsername() {
-    return localStorage.getItem('user');
+  getUsername(): string {
+    return localStorage.getItem(ConstantsStorage.USER);
   }
 
 }

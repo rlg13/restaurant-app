@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ import localeEs from '@angular/common/locales/es';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private translate: TranslateService){
+  constructor(private translate: TranslateService) {
     translate.setDefaultLang('es');
     registerLocaleData(localeEs);
   }

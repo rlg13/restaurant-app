@@ -1,8 +1,9 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { DishType } from './../../../model/dish-type.enum';
 import { DishService } from './../../../services/dish.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Dish } from 'src/app/model/dish';
+import { Dish } from './../../../model/dish';
 
 @Component({
   selector: 'app-create-dish',
@@ -20,15 +21,15 @@ export class CreateDishComponent implements OnInit {
 
   constructor(private dishService: DishService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dish = new Dish({});
     this.formCreateDish = new FormGroup({
       newDishName: new FormControl(this.dish.name, [Validators.required])
     });
   }
 
-  createDish() {
-    const newDish = new Dish({ type: this.typeDish, name: this.formCreateDish.value.newDishName});
+  createDish(): void {
+    const newDish = new Dish({ type: this.typeDish, name: this.formCreateDish.value.newDishName });
     this.dishService.create(newDish).subscribe(data => {
       this.newDishCreate.emit(data);
       this.showAddDish = false;

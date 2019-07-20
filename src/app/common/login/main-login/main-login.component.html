@@ -1,26 +1,26 @@
 <div class="login-wrapper">
     <form class="login"  [formGroup]="loginForm">
       <section class="title">
-        <h3 class="welcome">{{'login.TITLE' | translate}}</h3>
-        {{'login.NAME_APP' | translate}} 
+        <h3 class="welcome">{{'LOGIN.TITLE' | translate}}</h3>
+        {{'LOGIN.NAME_APP' | translate}} 
       </section>
       <div class="login-group" formGroupName="user">
         <clr-input-container>
-          <label>{{'login.USERNAME' | translate}}</label>
+          <label>{{'LOGIN.USERNAME' | translate}}</label>
           <input type="text"  name="username"  formControlName="username" clrInput  />
-          <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
+          <clr-control-error>{{'COMMON.CHECK_REQUIRED' | translate}}</clr-control-error>
         </clr-input-container>
         <clr-password-container>
-          <label>{{'login.PASSWORD' | translate}}</label>
+          <label>{{'LOGIN.PASSWORD' | translate}}</label>
           <input type="password"  name="password" clrPassword  formControlName="password"/>
-          <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
+          <clr-control-error>{{'COMMON.CHECK_REQUIRED' | translate}}</clr-control-error>
         </clr-password-container>
         <div class="error active" *ngIf="showError">          
             {{ textError | translate}}
         </div>        
-        <button class="btn btn-sm btn-link" id="new-user" (click)="newUserOpen()">{{'login.NEW_USER' | translate}}</button>      
+        <button class="btn btn-sm btn-link" id="new-user" (click)="newUserOpen()">{{'LOGIN.NEW_USER' | translate}}</button>      
         <button type="submit" class="btn btn-primary" (click)="login()"  [disabled]="loginForm.invalid">
-          {{'login.LOGIN' | translate}}
+          {{'LOGIN.LOGIN' | translate}}
         </button>
       </div>
       </form>

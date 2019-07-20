@@ -1,46 +1,46 @@
 <clr-modal [(clrModalOpen)]="showModal">
-  <h3 class="modal-title">{{'search.modalDetail.CREATE_ORDER' | translate}}</h3>
+  <h3 class="modal-title">{{'SEARCH.MODAL_DETAIL.CREATE_ORDER' | translate}}</h3>
 
   <div class="modal-body">
-    <form clrForm [formGroup]="formDetalle">
+    <form clrForm [formGroup]="detailForm">
       <div class="clr-row">
         <clr-date-container class="clr-col-8">
-          <label class="clr-col-6"> {{'search.modalDetail.DATE_ORDER' | translate}}</label>
+          <label class="clr-col-6"> {{'SEARCH.MODAL_DETAIL.DATE_ORDER' | translate}}</label>
           <input class="clr-col-6" [(clrDate)]="orderDay" name="orderDay" (change)="checkDates()" (blur)="checkDates()"
             formControlName="orderDayValue" />
-          <clr-control-error>{{'common.DATE_INVALID_TO_PAST' | translate}}
+          <clr-control-error>{{'COMMON.DATE_INVALID_TO_PAST' | translate}}
           </clr-control-error>
         </clr-date-container>
       </div>
 
       <div class="clr-row">
         <clr-input-container class="clr-col-8">
-          <label class="clr-col-6">{{'search.modalDetail.DATE_TO_SERVE' | translate}}</label>
+          <label class="clr-col-6">{{'SEARCH.MODAL_DETAIL.DATE_TO_SERVE' | translate}}</label>
           <label class="clr-col-6">{{ dayToServe | date: 'dd/MM/yyyy'}}</label>
         </clr-input-container>
       </div>
 
-      <app-select-dish #fistComponent [type]="getTypeEnum().FIRST" [items]="firstDishes" [form]="formDetalle" nameControl="firstSeletedValue"
-        labelName="search.modalDetail.FIRST_ORDER" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #firstComponent [type]="getTypeEnum().FIRST" [dishes]="firstDishes" [form]="detailForm" nameControl="firstSeletedValue"
+        labelName="SEARCH.MODAL_DETAIL.FIRST_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
-      <app-select-dish #secondComponent [type]="getTypeEnum().SECOND" [items]="secondDishes" [form]="formDetalle" nameControl="secondSeletedValue"
-        labelName="search.modalDetail.SECOND_ORDER" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #secondComponent [type]="getTypeEnum().SECOND" [dishes]="secondDishes" [form]="detailForm" nameControl="secondSeletedValue"
+        labelName="SEARCH.MODAL_DETAIL.SECOND_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
-      <app-select-dish #dessertComponent [type]="getTypeEnum().DESSERT" [items]="desserts" [form]="formDetalle" nameControl="dessertSeletedValue"
-        labelName="search.modalDetail.DESSERT_ORDER" (createNewDish)="openCreateDish($event)">
+      <app-select-dish #dessertComponent [type]="getTypeEnum().DESSERT" [dishes]="desserts" [form]="detailForm" nameControl="dessertSeletedValue"
+        labelName="SEARCH.MODAL_DETAIL.DESSERT_ORDER" (createNewDish)="openCreateDish($event)">
       </app-select-dish>
 
-      <div id="allmostOneError" *ngIf="formDetalle.errors?.allmostOne">
-        {{'search.modalDetail.ERROR_ALMOST_ONE_DISH' | translate}} </div>
+      <div id="allmostOneError" *ngIf="detailForm.errors?.allmostOne">
+        {{'SEARCH.MODAL_DETAIL.ERROR_ALMOST_ONE_DISH' | translate}} </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"
-      (click)="showModal = false">{{'common.BTN_CANCEL' | translate}}</button>
+      (click)="showModal = false">{{'COMMON.BTN_CANCEL' | translate}}</button>
     <button type="button" class="btn btn-success" (click)="saveOrder()"
-      [disabled]="formDetalle.invalid">{{'common.BTN_CREATE' | translate}}</button>
+      [disabled]="detailForm.invalid">{{'COMMON.BTN_CREATE' | translate}}</button>
   </div>
 </clr-modal>
 

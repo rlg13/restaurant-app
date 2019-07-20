@@ -1,10 +1,12 @@
 import { FormGroup, ValidatorFn } from '@angular/forms';
-import { Dish } from 'src/app/model/dish';
+
+import { Constants } from './../utils/constants';
+import { Dish } from './../../../model/dish';
 
 export const AlmostOneDishValidator: ValidatorFn = (fg: FormGroup) => {
-    const fistValue: Dish = fg.get(['firstSeletedValue']).value || new Dish({});
-    const secondValue: Dish = fg.get(['secondSeletedValue']).value || new Dish({});
-    const dessertValue: Dish = fg.get(['dessertSeletedValue']).value || new Dish({});
+    const fistValue: Dish = fg.get([Constants.FIRST_DISH]).value || new Dish({});
+    const secondValue: Dish = fg.get([Constants.SECOND_DISH]).value || new Dish({});
+    const dessertValue: Dish = fg.get([Constants.DESSERT]).value || new Dish({});
 
     if (!fistValue.isValid && !secondValue.isValid && !dessertValue.isValid) {
         return {

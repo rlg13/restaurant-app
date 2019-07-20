@@ -1,7 +1,8 @@
-import { FormGroup, FormControl, FormControlName } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DishType } from 'src/app/model/dish-type.enum';
-import { Dish } from 'src/app/model/dish';
+import { FormGroup } from '@angular/forms';
+
+import { DishType } from './../../../model/dish-type.enum';
+import { Dish } from './../../../model/dish';
 
 @Component({
   selector: 'app-select-dish',
@@ -11,7 +12,7 @@ import { Dish } from 'src/app/model/dish';
 export class SelectDishComponent implements OnInit {
 
   @Input() type: DishType;
-  @Input() items: Array<Dish>;
+  @Input() dishes: Array<Dish>;
   @Input() labelName: string;
   @Input() form: FormGroup;
   @Input() nameControl: string;
@@ -23,17 +24,17 @@ export class SelectDishComponent implements OnInit {
   emptyDish: Dish;
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.emptyDish = new Dish({ type: this.type });
     this.cleanSelect();
   }
 
-  cleanSelect() {
+  cleanSelect(): void {
     this.form.patchValue({
       [this.nameControl]: this.emptyDish
     });
   }
-  openNewDish() {
+  openNewDish(): void {
     this.createNewDish.emit(this.type);
   }
 

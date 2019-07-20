@@ -1,12 +1,14 @@
-import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClarityModule } from '@clr/angular';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
+import { ClarityModule } from '@clr/angular';
+
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FilterResultsComponent } from './filter-results.component';
-import { Order } from 'src/app/model/order';
-import { OrderState } from 'src/app/model/order-state.enum';
+import { Order } from '../../../model/order';
+import { OrderState } from '../../../model/order-state.enum';
 
 describe('FilterResultsComponent', () => {
 

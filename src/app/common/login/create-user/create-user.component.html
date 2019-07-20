@@ -1,24 +1,24 @@
 <clr-modal [(clrModalOpen)]="showNewUserModal">
-    <h3 class="modal-title">{{'login.NEW_USER' | translate}}</h3>
+    <h3 class="modal-title">{{'LOGIN.NEW_USER' | translate}}</h3>
     <div class="modal-body">
       <form clrForm [formGroup]="newUserForm">
           <div class="login-group" formGroupName="userCreate">
               <clr-input-container>
-                <label>{{'login.USERNAME' | translate}}</label>
+                <label>{{'LOGIN.USERNAME' | translate}}</label>
                 <input type="text"  name="username" clrInput  formControlName="username" />        
-                <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
+                <clr-control-error>{{'COMMON.CHECK_REQUIRED' | translate}}</clr-control-error>
               </clr-input-container>            
               <clr-password-container>
-                <label>{{'login.PASSWORD' | translate}}</label>
+                <label>{{'LOGIN.PASSWORD' | translate}}</label>
                 <input type="password"  name="password" clrPassword  formControlName="password"/>
-                <clr-control-error>{{'common.CHECK_REQUIRED' | translate}}</clr-control-error>
+                <clr-control-error>{{'COMMON.CHECK_REQUIRED' | translate}}</clr-control-error>
               </clr-password-container>          
           </div>            
       </form>    
     </div>     
   
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning-outline" (click)="cancelCreateUser()">{{'common.BTN_CANCEL' | translate}}</button>
-      <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="newUserForm.invalid" >{{'common.BTN_CREATE' | translate}}</button>
+      <button type="button" class="btn btn-warning-outline" (click)="cancelCreateUser()">{{'COMMON.BTN_CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="newUserForm.invalid" >{{'COMMON.BTN_CREATE' | translate}}</button>
     </div>
   </clr-modal>

@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { ConstantsRouter } from './../utils/constants-router';
+import { ConstantsStorage } from '../utils/constants-storage';
 
 @Injectable()
 export class SessionInterceptor implements HttpInterceptor {
@@ -12,20 +16,18 @@ export class SessionInterceptor implements HttpInterceptor {
 
         req = req.clone({
             setHeaders: {
-                Authorization: `${localStorage.getItem('Authorization')}`
+                Authorization: `${localStorage.getItem(ConstantsStorage.AUTHORIZATION)}`
             }
         });
 
-        // return next.handle(req);
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401) {
-                    this.router.navigate(['login']);
+                    this.router.navigate([ConstantsRouter.LOGIN]);
                 }
                 return throwError(error);
             })
         );
-
     }
 
 }

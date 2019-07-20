@@ -1,9 +1,9 @@
-import { DishType } from './../model/dish-type.enum';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { DishService } from './dish.service';
-import { Dish } from '../model/dish';
 
+import { DishService } from './dish.service';
+import { DishType } from './../model/dish-type.enum';
+import { Dish } from './../model/dish';
 
 describe('DishService', () => {
   let service: DishService;

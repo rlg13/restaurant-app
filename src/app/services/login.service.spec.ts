@@ -1,10 +1,11 @@
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { HttpParams } from '@angular/common/http';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginService } from './login.service';
 import { User } from '../model/user';
-import { HttpParams } from '@angular/common/http';
+
 
 describe('LoginService', () => {
   let service: LoginService;
@@ -55,6 +56,5 @@ describe('LoginService', () => {
     expect(req.request.method).toBe('DELETE');
     req.flush(DUMMY_PARAMS);
   });
-
 
 });

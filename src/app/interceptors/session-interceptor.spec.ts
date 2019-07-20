@@ -1,15 +1,16 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { Dish } from 'src/app/model/dish';
-
-import { DishType } from './../model/dish-type.enum';
-import { DishService } from './../services/dish.service';
-import { SessionInterceptor } from './session-interceptor';
 import { Router } from '@angular/router';
 
+import { Dish } from './../model/dish';
+import { DishType } from './../model/dish-type.enum';
+import { DishService } from './../services/dish.service';
+import { ConstantsStorage } from './../utils/constants-storage';
+import { SessionInterceptor } from './session-interceptor';
+
 class RouterStub {
-  public navigate(routes: string[]): void {}
+  public navigate(routes: string[]): void { }
 }
 
 describe('SessionInterceptor tests', () => {
@@ -40,7 +41,7 @@ describe('SessionInterceptor tests', () => {
 
 
   it('should add header Authorization', () => {
-    localStorage.setItem('Authorization','some value');
+    localStorage.setItem(ConstantsStorage.AUTHORIZATION, 'some value');
 
     const DISH_TYPE = DishType.FIRST;
 
@@ -59,4 +60,5 @@ describe('SessionInterceptor tests', () => {
     expect(httpRequest.request.method).toEqual('GET');
     httpRequest.flush(dummyDish, mockResponse);
   });
+
 });

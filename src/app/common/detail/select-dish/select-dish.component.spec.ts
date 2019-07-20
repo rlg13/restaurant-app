@@ -1,7 +1,10 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
+
 import { ClarityModule } from '@clr/angular';
+
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SelectDishComponent } from './select-dish.component';
 
 describe('SelectDishComponent', () => {

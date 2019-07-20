@@ -1,10 +1,13 @@
-import { map } from 'rxjs/operators';
-import { Order } from './../model/order';
-import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { OrderState } from '../model/order-state.enum';
+import { map } from 'rxjs/operators';
+
+import { Order } from './../model/order';
+import { OrderState } from './../model/order-state.enum';
+import { environment } from './../../environments/environment';
+
 
 
 
@@ -52,7 +55,7 @@ export class OrdersService {
           this.fromJson(item ? item : {})) : [])
       );
   }
-  create(newOrder: Order) {
+  create(newOrder: Order): Observable<Order> {
     return this.http.post<Order>(OrdersService.ORDERS_ENDPOINT, this.toJson(newOrder))
       .pipe(
         map((jsonResponse: any) => this.fromJson(jsonResponse))

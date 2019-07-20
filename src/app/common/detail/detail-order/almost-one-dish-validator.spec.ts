@@ -1,8 +1,8 @@
-import { FormGroup, FormControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-import { AlmostOneDishValidator } from './almost-one-dish-validator';
-import { Dish } from 'src/app/model/dish';
-import { DishType } from 'src/app/model/dish-type.enum';
+import { FormGroup, FormControl, ValidationErrors } from '@angular/forms';
 
+import { AlmostOneDishValidator } from './almost-one-dish-validator';
+import { Dish } from './../../../model/dish';
+import { DishType } from './../../../model/dish-type.enum';
 
 const EXPETED_VALIDATION: ValidationErrors = { allmostOne: true };
 
