@@ -20,7 +20,7 @@ export class FilterResultsComponent implements OnInit {
   @Output() cancelEvent: EventEmitter<Order> = new EventEmitter<Order>();
   @Output() paidEvent: EventEmitter<Order> = new EventEmitter<Order>();
 
-  constructor(private translator: TranslateService, private orderStateFilter: OrderStateFilter) { }
+  constructor(private translator: TranslateService, public orderStateFilter: OrderStateFilter) { }
 
   ngOnInit(): void {
   }

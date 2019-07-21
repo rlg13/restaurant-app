@@ -1,27 +1,64 @@
 # RestaurantFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.4.
+## Restaurant dishes ordering & management application frontend
 
-## Development server
+## Features
+ * Users management
+ * Create dishes
+ * Create orders (for today or future dates)
+ * Orders state workflow (create, pay and cancel)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Requirements
 
-## Code scaffolding
+ * `node`  >= 10.0
+ * `ng-cli` >= 8.0
+ * `npm` >= 6.9
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Development server
 
-## Build
+```bash
+npm install
+npm start
+```
+Open http://localhost:4200 on browser (Hot reload included)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Running unit tests
 
-## Running unit tests
+```bash
+npm test
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Build
 
-## Running end-to-end tests
+```bash
+ng build [--prod]
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Docker build
 
-## Further help
+```bash
+# Build production ready distribution files
+ng build --prod
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Create docker image
+docker build -f .\Dockerfile -t restaurant-front .
+
+# Create volatile container from image listening on port 80
+docker run -d -p 80:80 --rm --hostname=restaurant-front --name restaurant-front restaurant-front
+```
+
+### Usage instruction
+
+#### Development mode
+
+1. Open http://localhost:4200 on browser
+2. Login with:
+    - user: *Pepe*
+    - password: *1234*
+3. This mode includes exaple data
+
+#### Production/Docker mode
+
+1. Open http://localhost on browser
+2. Create new user
+3. This mode not includes exaple data
